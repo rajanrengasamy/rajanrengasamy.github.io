@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Program Manager Skill — PRD</title>
-<meta property="og:title" content="Program Manager Skill — PRD v1.0">
-<meta property="og:description" content="Cross-platform AI agent skill that transforms coding assistants into program management powerhouses. Open source.">
+<title>Program Manager Skill — PRD v2</title>
+<meta property="og:title" content="Program Manager Skill — PRD v2.0">
+<meta property="og:description" content="AI agent skill that transforms Claude Code and Cursor into program management powerhouses. Open source.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://rajanrengasamy.github.io/program-manager-skill/">
 <meta name="author" content="Rajan Rengasamy">
@@ -13,10 +13,10 @@
 :root { --bg:#0d1117; --card:#161b22; --text:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --border:#30363d; --green:#3fb950; --yellow:#d29922; --red:#f85149; }
 *{ box-sizing:border-box; margin:0; padding:0; }
 html{ scroll-behavior:smooth; }
-body{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:16px; padding:0; }
+body{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:16px; }
 .wrap{ max-width:780px; margin:0 auto; padding:1rem 1.25rem 4rem; }
 h1{ font-size:1.75rem; margin:1.5rem 0 0.5rem; color:var(--accent); }
-.subtitle{ color:var(--muted); margin-bottom:1.5rem; font-size:0.95rem; }
+.version-badge{ display:inline-block; font-size:0.75rem; background:var(--green); color:#000; padding:0.15rem 0.6rem; border-radius:12px; vertical-align:middle; margin-left:0.5rem; font-weight:600; }
 h2{ font-size:1.35rem; margin:1.5rem 0 0.75rem; color:var(--text); border:none; }
 h3{ font-size:1.1rem; margin:1.25rem 0 0.5rem; color:var(--accent); }
 h4{ font-size:1rem; margin:1rem 0 0.5rem; color:var(--text); }
@@ -24,7 +24,6 @@ h5{ font-size:0.9rem; margin:0.75rem 0 0.25rem; color:var(--muted); text-transfo
 p{ margin:0.5rem 0; }
 a{ color:var(--accent); text-decoration:none; }
 a:hover{ text-decoration:underline; }
-strong{ color:var(--text); }
 ul,ol{ padding-left:1.5rem; margin:0.5rem 0; }
 li{ margin:0.25rem 0; }
 blockquote{ border-left:3px solid var(--accent); padding:0.5rem 1rem; margin:1rem 0; background:var(--card); border-radius:0 6px 6px 0; font-style:italic; color:var(--muted); }
@@ -40,7 +39,7 @@ td{ padding:0.5rem 0.75rem; border:1px solid var(--border); }
 tr:nth-child(even){ background:rgba(22,27,34,0.5); }
 .toc{ background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; margin:1.5rem 0; }
 .toc h2{ font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin:0 0 0.75rem; }
-.toc ul{ list-style:none; padding:0; columns:2; }
+.toc ul{ list-style:none; padding:0; }
 .toc li{ margin:0.3rem 0; font-size:0.9rem; }
 details{ background:var(--card); border:1px solid var(--border); border-radius:8px; margin:1rem 0; }
 details[open]{ background:transparent; border-color:transparent; }
@@ -52,432 +51,285 @@ summary::before{ content:"▸ "; color:var(--accent); font-weight:bold; }
 details[open] summary::before{ content:"▾ "; }
 .top-btn{ position:fixed; bottom:1.5rem; right:1.5rem; background:var(--accent); color:var(--bg); border:none; border-radius:50%; width:44px; height:44px; font-size:1.3rem; cursor:pointer; opacity:0; transition:opacity 0.3s; z-index:99; box-shadow:0 2px 8px rgba(0,0,0,0.4); }
 .top-btn.show{ opacity:1; }
-.header-bar{ background:var(--card); border-bottom:1px solid var(--border); padding:0.6rem 1.25rem; position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); }
+.header-bar{ background:var(--card); border-bottom:1px solid var(--border); padding:0.6rem 1.25rem; position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); display:flex; justify-content:space-between; align-items:center; }
 .header-bar span{ font-size:0.85rem; color:var(--muted); }
-.badge{ display:inline-block; font-size:0.7rem; padding:0.1rem 0.5rem; border-radius:10px; margin-left:0.5rem; }
-.badge-draft{ background:var(--yellow); color:#000; }
-@media(max-width:600px){ .toc ul{ columns:1; } .wrap{ padding:0.75rem 1rem 3rem; } h1{ font-size:1.4rem; } }
+.scope-pills{ display:flex; gap:0.5rem; flex-wrap:wrap; margin:1rem 0; }
+.pill{ font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:12px; font-weight:600; }
+.pill-mvp{ background:var(--green); color:#000; }
+.pill-p2{ background:var(--yellow); color:#000; }
+.pill-future{ background:var(--border); color:var(--muted); }
+@media(max-width:600px){ .wrap{ padding:0.75rem 1rem 3rem; } h1{ font-size:1.4rem; } }
 @media print{ body{ background:#fff; color:#000; } .header-bar,.top-btn,.toc{ display:none; } details{ border:none; } summary h2{ color:#000; } a{ color:#000; } pre,code{ background:#f6f8fa; border-color:#d0d7de; } blockquote{ border-color:#000; } }
 </style>
 </head>
 <body>
 <div class="header-bar">
-<span>📋 Program Manager Skill — PRD v1.0 <span class="badge badge-draft">DRAFT</span></span>
+<span>📋 Program Manager Skill — PRD</span>
+<span class="version-badge" style="background:var(--green);color:#000;">v2.0</span>
 </div>
 <div class="wrap">
-<p># Program Manager Skill - Product Requirements Document</p>
-<p><strong>Version:</strong> 1.0  </p>
-<p><strong>Date:</strong> March 11, 2026  </p>
+<div class="scope-pills">
+<span class="pill pill-mvp">Claude Code</span>
+<span class="pill pill-mvp">Cursor</span>
+<span class="pill pill-p2">Slack API</span>
+<span class="pill pill-mvp">Jira MCP</span>
+</div>
+<p># Program Manager Skill - Product Requirements Document v2</p>
+<p><strong>Version:</strong> 2.0  </p>
+<p><strong>Date:</strong> March 15, 2026  </p>
 <p><strong>Author:</strong> Jarvis (for Rajan Rengasamy)  </p>
-<p><strong>Status:</strong> Draft for Review</p>
+<p><strong>Status:</strong> Build Plan (Demo-Ready)</p>
 <hr>
-<nav class="toc"><h2>Contents</h2><ul><li><a href="#executive-summary">Executive Summary</a></li><li><a href="#problem-statement">Problem Statement</a></li><li><a href="#user-personas">User Personas</a></li><li><a href="#core-features-detailed">Core Features (Detailed)</a></li><li><a href="#technical-architecture">Technical Architecture</a></li><li><a href="#cross-platform-compatibility-matrix">Cross-Platform Compatibility Matrix</a></li><li><a href="#mcp-integration-strategy">MCP Integration Strategy</a></li><li><a href="#mvp-scope-what-to-build-first">MVP Scope (What to Build First)</a></li><li><a href="#success-metrics">Success Metrics</a></li><li><a href="#go-to-market-strategy">Go-To-Market Strategy</a></li><li><a href="#competitive-landscape">Competitive Landscape</a></li><li><a href="#risks-mitigations">Risks &amp; Mitigations</a></li><li><a href="#implementation-roadmap-phases">Implementation Roadmap (Phases)</a></li><li><a href="#appendix-technical-details">Appendix: Technical Details</a></li><li><a href="#final-thoughts-why-this-will-work">Final Thoughts: Why This Will Work</a></li></ul></nav>
+<nav class="toc"><h2>Contents</h2><ul><li><a href="#executive-summary">Executive Summary</a></li><li><a href="#problem-statement-the-real-pain">Problem Statement: The Real Pain</a></li><li><a href="#the-opportunity">The Opportunity</a></li><li><a href="#user-personas">User Personas</a></li><li><a href="#core-features-mvp-vs-post-mvp">Core Features (MVP vs. Post-MVP)</a></li><li><a href="#technical-architecture">Technical Architecture</a></li><li><a href="#platform-compatibility-claude-code-cursor-only">Platform Compatibility: Claude Code &amp; Cursor Only</a></li><li><a href="#integration-strategy">Integration Strategy</a></li><li><a href="#mvp-scope-2-week-build-plan">MVP Scope: 2-Week Build Plan</a></li><li><a href="#demo-script-what-rajan-shows-raul">Demo Script: What Rajan Shows Raul</a></li><li><a href="#success-metrics">Success Metrics</a></li><li><a href="#go-to-market-strategy">Go-To-Market Strategy</a></li><li><a href="#competitive-landscape-trimmed">Competitive Landscape (Trimmed)</a></li><li><a href="#risks-mitigations">Risks &amp; Mitigations</a></li><li><a href="#implementation-roadmap">Implementation Roadmap</a></li><li><a href="#appendix-key-technical-schemas">Appendix: Key Technical Schemas</a></li><li><a href="#installation-examples">Installation Examples</a></li><li><a href="#why-this-will-work">Why This Will Work</a></li><li><a href="#final-thought">Final Thought</a></li></ul></nav>
 
 <details open id="executive-summary">
   <summary><h2>Executive Summary</h2></summary>
-  <div class="section-content"><p><strong>Program Manager Skill</strong> is an open-source, cross-platform AI agent skill that transforms AI coding assistants (Claude Code, Cursor, Windsurf, Aider, etc.) into program management powerhouses. Unlike traditional PM SaaS tools that require humans to click through UIs, this skill makes AI agents natively fluent in program management operations.</p>
-<p><strong>The Insight:</strong> Program managers already use AI coding tools for technical work. Why not teach those same AI agents to <em>be</em> program management experts?</p>
-<p><strong>Target Market:</strong> 50,000+ program/project managers who use AI coding tools but lack PM-specific automation.</p>
-<p><strong>Differentiation:</strong> Not a SaaS product. Not a chatbot. A <em>skill</em> that augments existing AI agents with PM superpowers—decision tracking, capacity planning, stakeholder communication, technical debt quantification, and strategic portfolio analysis.</p>
-<p><strong>Business Model:</strong> Open-source core (GitHub traction, LinkedIn visibility, consulting inbound). Premium: enterprise MCP servers, private deployment templates, custom integrations.</p>
-<p><strong>Success Criteria:</strong></p>
+  <div class="section-content"><p><strong>Program Manager Skill</strong> is an open-source AI agent skill that transforms Claude Code and Cursor into program management powerhouses. It automates the drudgery—meeting transcription, decision tracking, capacity planning, status reports—freeing PMs to do strategic work.</p>
+<p><strong>The Insight:</strong> PMs already use AI coding tools. Why not teach those agents to <em>do</em> program management?</p>
+<p><strong>Not a SaaS product. Not a chatbot. A skill.</strong></p>
+<p><strong>Target:</strong> 50,000+ program managers using Claude Code or Cursor who spend 40% of their time on manual coordination work.</p>
+<p><strong>Business Model:</strong> Open-source core → GitHub traction → LinkedIn visibility → consulting inbound.</p>
+<p><strong>Success Metrics (6 months):</strong></p>
 <ul>
-<li>1,000+ GitHub stars in first 6 months</li>
-<li>10+ LinkedIn posts driving 50k+ impressions</li>
-<li>Internal Optiver PMO adoption (demo at next town hall)</li>
-<li>3+ external consulting inquiries</li>
-<hr>
-</ul></div>
+<li>1,000+ GitHub stars</li>
+<li>10 LinkedIn posts, 50k+ impressions</li>
+<li>Internal Optiver PMO adoption</li>
+<li>3+ consulting inquiries</li>
+</ul>
+<hr></div>
 </details>
-<details open id="problem-statement">
-  <summary><h2>Problem Statement</h2></summary>
-  <div class="section-content"><h3 id="the-real-pain-grounded-in-apac-pmo-meeting-march-10-2026">The Real Pain (Grounded in APAC PMO Meeting, March 10, 2026)</h3>
-<p><strong>Context:</strong> Optiver&#x27;s APAC PMO team—like most enterprise PMOs—is drowning in manual coordination while trying to evolve from execution focus to strategic advisory. They have the tools (Jira, Confluence, Zoom, Slack, Databricks) but no connective tissue to make them work together intelligently.</p>
-<h4>Pain Point #1: Meeting → Action → Follow-up Pipeline is Manual</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;I record Zoom meetings → summaries → tickets → follow-ups, links meeting notes to technical debt backlog (400 days identified)&quot;</em></p>
-<p><strong>Reality:</strong> PMs spend 40% of their time transcribing meetings, creating action items, chasing follow-ups, and manually linking discussions to work items. This is high-value coordination work done with low-value manual labor.</p>
-<h4>Pain Point #2: No Decision Log or Audit Trail</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;We would like to formalize that because that ideally would help us to go and get additional resources if there is a lot of declined PM or DM requests&quot;</em></p>
-<p><strong>Reality:</strong> Decisions are made in meetings, Slack threads, and email chains. Six months later, nobody remembers <em>why</em> Project X got a PM and Project Y didn&#x27;t. When justifying headcount or budget, there&#x27;s no data—just &quot;field-based insights.&quot;</p>
-<h4>Pain Point #3: Capacity Planning is Guesswork</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;Current state: Field-based insights vs. data-driven decisions&quot;</em></p>
-<p><strong>Reality:</strong> PMs track capacity in spreadsheets, Google Docs, or their heads. No real-time view of who&#x27;s overallocated, which projects are starving for resources, or where conflicts exist. &quot;Can we take on Project Z?&quot; is answered with &quot;I think so?&quot; instead of data.</p>
-<h4>Pain Point #4: Cross-Regional Coordination is Chaotic</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;TAPMO: Tech delivery focused. APAC PMO: End-to-end delivery model. Single person owns all requirements (legal, technical, compliance, tax)&quot;</em></p>
-<p><strong>Reality:</strong> Multi-region programs require constant alignment. Different PMOs operate differently. Duplicate work happens. Things fall through cracks. No automated duplicate detection or timezone-aware coordination.</p>
-<h4>Pain Point #5: Technical Debt is Invisible</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;400 days of technical debt identified&quot;</em></p>
-<p><strong>Reality:</strong> Technical debt lives in Jira backlogs, disconnected from the strategic discussions where it originated. PMs can&#x27;t easily answer &quot;How much debt are we carrying?&quot; or &quot;What&#x27;s the dollar cost of this debt?&quot; without manual correlation.</p>
-<h4>Pain Point #6: Stakeholder Communication is Repetitive Drudgery</h4>
-<p><strong>Reality:</strong> Weekly status reports, steering committee decks, RAID logs—same format, different data. PMs spend hours reformatting information that already exists in Jira/Confluence into PowerPoint slides for executives.</p>
-<h4>Pain Point #7: PMO is Execution-Focused, Not Strategic</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;We are more on the execution side of things. Rather than the strategy, but that that&#x27;s where we&#x27;d like to move&quot;</em></p>
-<p><strong>Reality:</strong> PMs are so busy coordinating delivery that they can&#x27;t step back and answer strategic questions: &quot;Should we invest in X or Y?&quot; &quot;What&#x27;s our portfolio health?&quot; &quot;Where are hidden risks?&quot;</p>
-<h4>Pain Point #8: Tools Move Faster Than Adoption</h4>
-<p><strong>Quote from transcript:</strong> <em>&quot;Tools move so quickly that you kind of go, all right, you&#x27;ve spent so much time, like, figuring out how to schedule how to do this... And then you go on Leaf for, like, a few weeks, come back, and then all these new tools&quot;</em></p>
-<p><strong>Reality:</strong> PM tools proliferate. Teams adopt N8N, then Claude Code, then Cursor, then something else. Each tool requires learning, setup, and integration. No single &quot;PM skill&quot; that works everywhere.</p>
-<h3 id="the-opportunity">The Opportunity</h3>
-<p><strong>Observation:</strong> PMs at Optiver (and everywhere) are already using AI coding tools. Cursor for dashboards. Claude Code for automation. MCP servers for data connectivity.</p>
-<p><strong>Insight:</strong> What if those same AI agents could <em>do program management work</em> natively? Not as a separate tool. As a <em>skill</em> the agent learns.</p>
-<p><strong>Market Gap:</strong> Thousands of PM SaaS tools exist (Monday, Asana, Jira, etc.). ZERO skills exist that teach AI agents to be expert program managers.</p>
+<details open id="problem-statement-the-real-pain">
+  <summary><h2>Problem Statement: The Real Pain</h2></summary>
+  <div class="section-content"><p><strong>Context:</strong> Optiver&#x27;s APAC PMO meeting (March 10, 2026) surfaced universal PM pain points. These quotes are from the transcript—real problems, not assumptions.</p>
+<h3 id="pain-point-1-meeting-action-follow-up-is-manual-hell">Pain Point #1: Meeting → Action → Follow-up is Manual Hell</h3>
+<p><em>&quot;I record Zoom meetings → summaries → tickets → follow-ups, links meeting notes to technical debt backlog (400 days identified)&quot;</em></p>
+<p><strong>Reality:</strong> PMs spend 40% of their time transcribing, creating action items, chasing follow-ups. High-value coordination done with low-value manual labor.</p>
+<h3 id="pain-point-2-no-decision-log-or-audit-trail">Pain Point #2: No Decision Log or Audit Trail</h3>
+<p><em>&quot;We would like to formalize that because that ideally would help us to go and get additional resources if there is a lot of declined PM or DM requests&quot;</em></p>
+<p><strong>Reality:</strong> Decisions made in meetings vanish into the void. Six months later: &quot;Why did Project X get a PM and Project Y didn&#x27;t?&quot; No data. Just guesses.</p>
+<h3 id="pain-point-3-capacity-planning-is-spreadsheet-archaeology">Pain Point #3: Capacity Planning is Spreadsheet Archaeology</h3>
+<p><em>&quot;Current state: Field-based insights vs. data-driven decisions&quot;</em></p>
+<p><strong>Reality:</strong> Who&#x27;s overallocated? Which projects are starving for resources? &quot;Can we take on Project Z?&quot; answered with &quot;I think so?&quot; instead of data.</p>
+<h3 id="pain-point-4-technical-debt-is-invisible-until-it-bites">Pain Point #4: Technical Debt is Invisible Until It Bites</h3>
+<p><em>&quot;400 days of technical debt identified&quot;</em></p>
+<p><strong>Reality:</strong> Debt lives in Jira backlogs, disconnected from strategy discussions. PMs can&#x27;t answer &quot;How much debt?&quot; or &quot;What&#x27;s the cost?&quot; without manual archaeology.</p>
+<h3 id="pain-point-5-stakeholder-communication-repetitive-drudgery">Pain Point #5: Stakeholder Communication = Repetitive Drudgery</h3>
+<p><strong>Reality:</strong> Weekly status reports, steering decks, RAID logs—same format, different data. Hours spent reformatting information that already exists in Jira.</p>
+<h3 id="pain-point-6-pmo-is-execution-focused-not-strategic">Pain Point #6: PMO is Execution-Focused, Not Strategic</h3>
+<p><em>&quot;We are more on the execution side of things. Rather than the strategy, but that&#x27;s where we&#x27;d like to move&quot;</em></p>
+<p><strong>Reality:</strong> Too busy coordinating to answer strategic questions: &quot;Should we invest in X or Y?&quot; &quot;What&#x27;s our portfolio health?&quot;</p>
+<h3 id="pain-point-7-tools-move-faster-than-adoption">Pain Point #7: Tools Move Faster Than Adoption</h3>
+<p><em>&quot;Tools move so quickly that you kind of go, all right, you&#x27;ve spent so much time figuring out how to do this... And then you go on leave for a few weeks, come back, and then all these new tools&quot;</em></p>
+<p><strong>Reality:</strong> Tool proliferation. Each requires learning, setup, integration. No single &quot;PM skill&quot; that works everywhere.</p>
+<hr></div>
+</details>
+<details open id="the-opportunity">
+  <summary><h2>The Opportunity</h2></summary>
+  <div class="section-content"><p><strong>Observation:</strong> PMs at Optiver (and everywhere) already use AI coding tools—Cursor for dashboards, Claude Code for automation.</p>
+<p><strong>Insight:</strong> What if those same agents could <em>do PM work natively</em>? Not as a separate tool. As a skill.</p>
+<p><strong>Market Gap:</strong> Thousands of PM SaaS tools exist. ZERO skills that teach AI agents to be expert program managers.</p>
 <hr></div>
 </details>
 <details open id="user-personas">
   <summary><h2>User Personas</h2></summary>
   <div class="section-content"><h3 id="primary-enterprise-program-manager-rajan">Primary: Enterprise Program Manager (Rajan)</h3>
 <ul>
-<li><strong>Demographics:</strong> 5-15 years experience, tech-adjacent role, reports to CTO/PMO Office</li>
-<li><strong>Tools:</strong> Jira, Confluence, Slack, Zoom, Databricks, AI coding tools (Cursor, Claude Code)</li>
-<li><strong>Pain:</strong> Drowning in coordination work, wants to be strategic but stuck in execution</li>
-<li><strong>Goal:</strong> Automate the drudgery, surface insights, free up time for strategic thinking</li>
-<li><strong>Technical Skill:</strong> Comfortable with APIs, JSON, config files. Not a developer but can read code.</li>
-<li><strong>Decision Criteria:</strong> &quot;Does it save me 10+ hours/week?&quot; &quot;Can I demo this to my boss?&quot; &quot;Will it work with our stack?&quot;</li>
+<li>5-15 years experience, tech-adjacent, reports to CTO/PMO</li>
+<li>Tools: Jira, Confluence, Slack, Zoom, Claude Code/Cursor</li>
+<li>Pain: Drowning in coordination, stuck in execution mode</li>
+<li>Goal: Automate drudgery, surface insights, free time for strategy</li>
+<li>Decision criteria: &quot;Does it save me 10+ hours/week?&quot; &quot;Can I demo this to my boss?&quot;</li>
 </ul>
-<h3 id="secondary-delivery-manager-cash-crystal-ma">Secondary: Delivery Manager (Cash/Crystal/Ma)</h3>
+<h3 id="secondary-delivery-manager">Secondary: Delivery Manager</h3>
 <ul>
-<li><strong>Demographics:</strong> Team-embedded, tech delivery focused, 3-10 years experience</li>
-<li><strong>Tools:</strong> Jira, GitHub, CI/CD tools, team-specific tech stack</li>
-<li><strong>Pain:</strong> Context switching across multiple projects, manually tracking dependencies</li>
-<li><strong>Goal:</strong> Single pane of glass for team health, automated status updates</li>
-<li><strong>Technical Skill:</strong> More technical than PMs, comfortable with CLIs and scripts</li>
-<li><strong>Decision Criteria:</strong> &quot;Does it integrate with our dev workflow?&quot; &quot;Can I customize it?&quot;</li>
+<li>Team-embedded, 3-10 years experience</li>
+<li>More technical, comfortable with CLIs</li>
+<li>Pain: Context switching, manual dependency tracking</li>
+<li>Goal: Single pane of glass for team health</li>
 </ul>
-<h3 id="tertiary-pmo-leadership-linus-lewen">Tertiary: PMO Leadership (Linus/Lewen)</h3>
+<h3 id="tertiary-pmo-leadership">Tertiary: PMO Leadership</h3>
 <ul>
-<li><strong>Demographics:</strong> VP/Director level, owns PMO strategy and headcount</li>
-<li><strong>Tools:</strong> PowerPoint, executive dashboards, high-level reporting</li>
-<li><strong>Pain:</strong> Lack of portfolio visibility, can&#x27;t justify headcount without data</li>
-<li><strong>Goal:</strong> Data-driven portfolio decisions, clear justification for PMO capacity</li>
-<li><strong>Technical Skill:</strong> Not technical—needs outputs, not configuration</li>
-<li><strong>Decision Criteria:</strong> &quot;Can I present this to the CTO?&quot; &quot;Does it prove PMO value?&quot;</li>
+<li>VP/Director level, owns PMO strategy</li>
+<li>Pain: No portfolio visibility, can&#x27;t justify headcount without data</li>
+<li>Goal: Data-driven decisions, clear PMO value proof</li>
+<li>Decision criteria: &quot;Can I present this to the CTO?&quot;</li>
 </ul>
-<h3 id="stretch-solo-founder-indie-hacker">Stretch: Solo Founder / Indie Hacker</h3>
-<ul>
-<li><strong>Demographics:</strong> Building a product, wearing all hats including PM</li>
-<li><strong>Tools:</strong> GitHub, Linear/Notion, AI coding assistant</li>
-<li><strong>Pain:</strong> No time for &quot;proper&quot; project management, things slip through cracks</li>
-<li><strong>Goal:</strong> Lightweight PM discipline without heavy process</li>
-<li><strong>Technical Skill:</strong> High—can modify config files, write scripts</li>
-<li><strong>Decision Criteria:</strong> &quot;Is it free?&quot; &quot;Can I set it up in 15 minutes?&quot; &quot;Does it stay out of my way?&quot;</li>
-<hr>
-</ul></div>
+<hr></div>
 </details>
-<details open id="core-features-detailed">
-  <summary><h2>Core Features (Detailed)</h2></summary>
-  <div class="section-content"><h3 id="feature-1-meeting-intelligence-pipeline">Feature 1: Meeting Intelligence Pipeline</h3>
-<p><strong>User Story:</strong> As a PM, I want my AI agent to automatically process meeting recordings into actionable work items, so I don&#x27;t spend hours transcribing and following up.</p>
+<details open id="core-features-mvp-vs-post-mvp">
+  <summary><h2>Core Features (MVP vs. Post-MVP)</h2></summary>
+  <div class="section-content"><h3 id="mvp-build-now-demo-ready-in-2-weeks">✅ MVP (Build Now - Demo-Ready in 2 Weeks)</h3>
+<h4>Feature 1: Meeting Intelligence Pipeline ⭐ CORE DEMO</h4>
+<p><strong>User Story:</strong> Process meeting transcripts → actionable work items automatically.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><strong>Transcription ingestion:</strong> Accepts Zoom/Teams/Meet transcripts (txt, vtt, Granola format)</li>
-<li><strong>Action item extraction:</strong> Parses transcript → identifies decisions, action items, owners, deadlines</li>
-<li><strong>Ticket creation:</strong> Auto-generates Jira tickets with context from meeting notes</li>
-<li><strong>Follow-up scheduling:</strong> Sets reminders for action item owners (Slack DM, calendar event)</li>
-<li><strong>Retrospective linkage:</strong> Links meeting notes to outcomes (&quot;That decision in Meeting X led to Ticket Y&quot;)</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Skill provides <code>process_meeting_transcript(transcript_path, project_key)</code> command</li>
-<li>Uses LLM summarization (configurable: Claude, GPT, Gemini) to extract structured data</li>
-<li>Outputs JSON: <code>{decisions: [], action_items: [], risks: [], dependencies: []}</code></li>
-<li>Integrates with Jira API (via MCP server or direct REST)</li>
-<li>Stores meeting summaries in local markdown files (Obsidian-compatible)</li>
-<p><strong>Example Usage (in Cursor):</strong></p>
+<li>Ingest Zoom/Teams/Granola transcripts</li>
+<li>Extract action items, decisions, owners, deadlines</li>
+<li>Auto-create Jira tickets via API</li>
+<li>Save meeting summary to markdown</li>
+</ul>
+<p><strong>Example:</strong></p>
 <pre><code class="lang-">
 User: Process last week&#x27;s PMO meeting transcript
-Agent: [reads transcript from Granola export]
 Agent: Found 8 action items, 3 decisions, 2 risks
-Agent: Created 5 Jira tickets (ABC-123 through ABC-127)
-Agent: Scheduled follow-ups for Cash (2), Crystal (1), Ma (1)
-Agent: Summary saved to memory/meetings/2026-03-10-pmo-meeting.md
+Agent: Created 5 Jira tickets (APAC-123 through APAC-127)
+Agent: Summary saved to memory/meetings/2026-03-10-pmo.md
 </code></pre>
-</ul>
-<h3 id="feature-2-decision-log-tracking">Feature 2: Decision Log &amp; Tracking</h3>
-<p><strong>User Story:</strong> As a PMO leader, I want a queryable log of all program decisions with outcomes, so I can justify resource allocations and learn from past choices.</p>
+<h4>Feature 2: Decision Log &amp; Tracking ⭐ MVP</h4>
+<p><strong>User Story:</strong> Queryable log of all program decisions with rationale.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><strong>Decision capture:</strong> Extracts decisions from meetings, Slack, email, Confluence</li>
-<li><strong>Structured storage:</strong> Stores decisions with metadata (date, participants, rationale, options considered)</li>
-<li><strong>Outcome tracking:</strong> Links decisions to results (&quot;We chose Option A → 3 months later → 20% over budget&quot;)</li>
-<li><strong>Query interface:</strong> Natural language search: &quot;Why did we decline a PM for Project Zebra?&quot;</li>
-<li><strong>Audit trail:</strong> Immutable log for compliance/governance</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Decision schema: <code>{id, date, title, context, options_considered, decision_made, rationale, participants, related_tickets, outcome_status, lessons_learned}</code></li>
-<li>Stored in <code>memory/decisions/YYYY-MM-DD-decision-slug.json</code> (Git-trackable)</li>
-<li>Indexed in SQLite for fast search (or vector DB for semantic search)</li>
-<li>LLM extracts decisions from unstructured text (meeting notes, Slack threads)</li>
-<p><strong>Example Usage (in Claude Code):</strong></p>
+<li>Capture decisions (manual entry or extracted from meetings)</li>
+<li>Store with metadata: date, participants, rationale, options considered</li>
+<li>Natural language search: &quot;Why did we decline a PM for Project Zebra?&quot;</li>
+</ul>
+<p><strong>Example:</strong></p>
 <pre><code class="lang-">
-User: Why didn&#x27;t we assign a PM to the M365 migration project?
-Agent: [searches decision log]
+User: Why didn&#x27;t we assign a PM to M365 migration?
 Agent: Decision ABC-2024-Q3-014: &quot;M365 Migration - PM Request Declined&quot;
        Date: Sept 15, 2024
        Rationale: Team estimated &lt;3 months, no cross-regional dependencies
-       Outcome: Took 5 months, missed dependencies with compliance team
-       Lesson: Should assign PM to any project touching compliance
+       Outcome: Took 5 months, missed compliance dependencies
+       Lesson: Assign PM to any compliance-touching project
 </code></pre>
-</ul>
-<h3 id="feature-3-capacity-resource-planning">Feature 3: Capacity &amp; Resource Planning</h3>
-<p><strong>User Story:</strong> As a PM, I want real-time visibility into team capacity and allocation conflicts, so I can make data-driven staffing decisions.</p>
+<h4>Feature 7: Stakeholder Communication ⭐ MVP</h4>
+<p><strong>User Story:</strong> Auto-generate status reports from Jira + meeting notes.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><strong>Capacity tracking:</strong> Maps people → projects → % allocation</li>
-<li><strong>Utilization views:</strong> Shows who&#x27;s overallocated (&gt;100%), underallocated (&lt;70%), available</li>
-<li><strong>Conflict detection:</strong> Surfaces allocation conflicts (person assigned 150% in same timeframe)</li>
-<li><strong>Scenario planning:</strong> &quot;What if we add 2 more devs to Project X?&quot;</li>
-<li><strong>Visualization:</strong> Gantt-style timelines, heatmaps, burndown charts</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Data sources: Jira (assignee, story points), Tempo (time tracking), Google Calendar (OOO)</li>
-<li>Aggregation: <code>capacity_snapshot(team, start_date, end_date)</code> → returns allocation matrix</li>
-<li>Rules engine: flags overallocation, vacation conflicts, holiday impacts</li>
-<li>Outputs markdown tables, CSV exports, or visual charts (via MCP + data viz tool)</li>
-<p><strong>Example Usage (in Windsurf):</strong></p>
-<pre><code class="lang-">
-User: Show me APAC PMO capacity for next month
-Agent: Capacity Summary (April 2026):
-       - Rajan: 120% allocated (OVERALLOCATED - suggest defer 1 project)
-       - Cash: 85% allocated
-       - Crystal: 90% allocated
-       - Ma: 60% allocated (+ 2 weeks vacation Apr 15-26)
-       Conflicts: Rajan assigned to 3 projects starting same week
-       Recommendation: Move Project Zebra start date to May 1
-</code></pre>
+<li>Pull Jira data (tickets, velocity, milestones)</li>
+<li>Pull recent decisions and meeting notes</li>
+<li>Generate markdown status report from template</li>
+<li>Output to Slack, email, or file</li>
 </ul>
-<h3 id="feature-4-intake-request-formalization">Feature 4: Intake &amp; Request Formalization</h3>
-<p><strong>User Story:</strong> As a PMO, I want a standardized process for project intake and PM assignment, so we have data to justify headcount and track declined requests.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-">
+User: Generate weekly status report for TMT
+Agent: Generated &quot;2026-03-11-tmt-update.md&quot;
+       - Project status (3 on-track, 1 at-risk)
+       - Risks (vendor delay, capacity constraint)
+       - Decisions (1 pending: India Tax PM assignment)
+       - Next actions (4 items)
+Agent: Post to Slack #pmo-updates?
+</code></pre>
+<h3 id="phase-2-important-not-blocking-demo">🟡 Phase 2 (Important, Not Blocking Demo)</h3>
+<h4>Feature 3: Capacity &amp; Resource Planning</h4>
+<p><strong>User Story:</strong> Real-time visibility into team capacity and allocation conflicts.</p>
+<p><strong>Capabilities (Lite):</strong></p>
+<ul>
+<li>Manual capacity entry (person, project, % allocation)</li>
+<li>Overallocation detection</li>
+<li>Output markdown table</li>
+</ul>
+<p><strong>Deferred to Phase 2:</strong></p>
+<ul>
+<li>Integration with Jira time tracking</li>
+<li>Gantt charts / visualization</li>
+<li>Calendar integration for OOO</li>
+</ul>
+<h4>Feature 4: Intake &amp; Request Formalization</h4>
+<p><strong>User Story:</strong> Standardized project intake with priority scoring.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><strong>Request form template:</strong> Structured intake (project name, sponsor, scope, urgency, complexity)</li>
-<li><strong>Priority scoring:</strong> Auto-scores requests based on business value, effort, strategic alignment</li>
-<li><strong>Assignment logic:</strong> Recommends PM based on skills, availability, past experience</li>
-<li><strong>Declined request tracking:</strong> Logs why requests were declined (&quot;No capacity,&quot; &quot;Out of scope&quot;)</li>
-<li><strong>Reporting:</strong> &quot;We declined 12 PM requests last quarter due to capacity constraints&quot;</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Intake form: YAML or JSON schema (can be web form via MCP server or CLI prompt)</li>
-<li>Scoring model: Weighted criteria (business impact, technical complexity, cross-region, etc.)</li>
-<li>Decision log integration: Approved/declined requests stored with rationale</li>
-<li>Outputs: <code>requests/YYYY-MM-DD-project-name.json</code> + aggregate reports</li>
-<p><strong>Example Usage (in Aider):</strong></p>
-<pre><code class="lang-">
-User: New PM request for &quot;India Tax Compliance Upgrade&quot;
-Agent: [prompts for details]
-Agent: Scoring:
-       - Business Impact: High (regulatory requirement)
-       - Technical Complexity: Medium
-       - Cross-region: Yes (India + APAC)
-       - Urgency: High (Q2 deadline)
-       Priority Score: 87/100
-       Recommendation: ASSIGN PM (Cash - has India experience)
-Agent: Created request-2026-03-11-india-tax.json
-Agent: Added to decision log for next PMO review
-</code></pre>
+<li>Structured intake form (YAML/JSON)</li>
+<li>Priority scoring based on business value, urgency, complexity</li>
+<li>Track declined requests with rationale</li>
 </ul>
-<h3 id="feature-5-cross-regional-coordination">Feature 5: Cross-Regional Coordination</h3>
-<p><strong>User Story:</strong> As a global PM, I want timezone-aware coordination and duplicate detection, so I don&#x27;t duplicate work across regions or miss handoffs.</p>
+<p><strong>Why Phase 2:</strong> Useful for headcount justification, but not demo-critical.</p>
+<h4>Feature 6: Technical Debt Quantification</h4>
+<p><strong>User Story:</strong> Link technical debt to strategy discussions, calculate cost.</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><strong>Timezone awareness:</strong> Highlights meeting time conflicts, optimal handoff windows</li>
-<li><strong>Regional PMO profiles:</strong> Understands TA vs APAC differences (scope, responsibilities)</li>
-<li><strong>Duplicate detection:</strong> Flags similar projects across regions (&quot;Sydney and NYC both scoping Broker X&quot;)</li>
-<li><strong>Handoff checklists:</strong> Ensures clean handoffs when projects cross regions</li>
-<li><strong>Shared context:</strong> Syncs decision logs, meeting notes, lessons learned across regions</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Regional config: <code>pmo_profiles.json</code> defines each region&#x27;s scope, working hours, norms</li>
-<li>Duplicate detection: Vector similarity on project descriptions + stakeholder overlap</li>
-<li>Timezone calculator: Suggests meeting times that work for all regions</li>
-<li>Handoff template: Generates checklist when project ownership transfers</li>
-<p><strong>Example Usage (in Claude Code):</strong></p>
-<pre><code class="lang-">
-User: Prep handoff for &quot;EU Broker Onboarding&quot; to Amsterdam PMO
-Agent: Handoff Checklist Generated:
-       ✓ Document current status (80% requirements complete)
-       ✓ Share decision log (3 key decisions made in APAC)
-       ✓ Note technical debt (2 issues deferred to Phase 2)
-       ⚠ Schedule handoff call (suggested: Tue 9am Sydney / Mon 4pm Amsterdam)
-       ⚠ Transfer Jira ownership to Amsterdam PM (assign to [name])
-       ⚠ Add Amsterdam compliance lead to Slack channel
-Agent: Draft email prepared - review?
-</code></pre>
+<li>Tag Jira tickets as debt</li>
+<li>Calculate total debt (story points → days → dollars)</li>
+<li>Basic cost model</li>
 </ul>
-<h3 id="feature-6-technical-debt-quantification">Feature 6: Technical Debt Quantification</h3>
-<p><strong>User Story:</strong> As a PM, I want to link technical debt in backlogs to the strategic discussions where it originated, and calculate its cost in days/dollars.</p>
-<p><strong>Capabilities:</strong></p>
+<p><strong>Deferred to Phase 2:</strong></p>
 <ul>
-<li><strong>Debt tagging:</strong> Labels Jira tickets as technical debt with context (meeting note link, rationale)</li>
-<li><strong>Debt aggregation:</strong> Rolls up all debt by team, project, category</li>
-<li><strong>Cost calculation:</strong> Estimates debt cost (story points → days, days → dollars at loaded cost)</li>
-<li><strong>Prioritization:</strong> Ranks debt by cost, risk, strategic impact</li>
-<li><strong>Trend analysis:</strong> &quot;Debt is growing 10% per quarter&quot; or &quot;We paid down 50 days last sprint&quot;</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Debt schema: <code>{ticket_id, origin_meeting, date_created, estimated_days, business_impact, paid_down: false}</code></li>
-<li>Extraction: LLM scans meeting notes for &quot;let&#x27;s defer X&quot; or &quot;workaround for Y&quot; → flags as debt</li>
-<li>Cost model: Story points × team velocity × loaded cost per dev-day</li>
-<li>Reporting: Debt dashboard (markdown table or JSON for external viz)</li>
-<p><strong>Example Usage (in Cursor):</strong></p>
-<pre><code class="lang-">
-User: Calculate technical debt for Enterprise Data Program
-Agent: Technical Debt Summary:
-       Total: 247 story points (~400 dev-days)
-       Cost: ~$600k AUD (at $1500/day loaded cost)
-       Top 3 Debt Items:
-       1. Deferred data encryption (80 days, high risk)
-       2. Manual ETL workaround (60 days, ops burden)
-       3. Legacy API not decomissioned (40 days, maintenance cost)
-       Recommendation: Prioritize #1 (security) and #2 (ops efficiency)
-</code></pre>
+<li>Auto-extraction from meeting notes</li>
+<li>Trend analysis</li>
+<li>Prioritization engine</li>
 </ul>
-<h3 id="feature-7-stakeholder-communication">Feature 7: Stakeholder Communication</h3>
-<p><strong>User Story:</strong> As a PM, I want automated generation of status reports and steering committee decks, so I spend less time formatting and more time analyzing.</p>
-<p><strong>Capabilities:</strong></p>
-<ul>
-<li><strong>Status report generation:</strong> Auto-generates weekly updates from Jira + meeting notes</li>
-<li><strong>Steer-co pack creation:</strong> Outputs exec-friendly slides (markdown → PDF/PPTX)</li>
-<li><strong>RAID log maintenance:</strong> Tracks Risks, Actions, Issues, Decisions automatically</li>
-<li><strong>Stakeholder preferences:</strong> Remembers who wants detail vs. summary, preferred format</li>
-<li><strong>Multi-channel delivery:</strong> Slack, email, Confluence—wherever stakeholders are</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Report templates: Markdown templates with placeholders (<code>{{project_status}}</code>, <code>{{risks}}</code>)</li>
-<li>Data sources: Jira API, decision log, meeting notes, capacity tracker</li>
-<li>Output formats: Markdown (Obsidian), PDF (via Pandoc), PPTX (via python-pptx), Slack message</li>
-<li>Scheduling: Can run on cron (&quot;Generate Monday status report every Monday 9am&quot;)</li>
-<p><strong>Example Usage (in Windsurf):</strong></p>
-<pre><code class="lang-">
-User: Generate steering committee update for Q2 Planning
-Agent: Generated &quot;Q2-Planning-SteerCo-2026-03-11.md&quot;
-       Sections:
-       - Executive Summary (on track, 2 risks)
-       - Milestones (3 complete, 2 in progress, 1 at risk)
-       - Budget (15% under budget)
-       - Risks (detailed: vendor delay, dependency on Amsterdam team)
-       - Next Actions (4 decisions needed from steer-co)
-Agent: Export to PDF? Send to Slack? Post to Confluence?
-</code></pre>
-</ul>
-<h3 id="feature-8-strategic-advisory-engine">Feature 8: Strategic Advisory Engine</h3>
-<p><strong>User Story:</strong> As a PMO leader, I want portfolio-level analysis and investment recommendations, so I can advise TMT on what to prioritize.</p>
-<p><strong>Capabilities:</strong></p>
-<ul>
-<li><strong>Portfolio health scoring:</strong> Aggregates project health across all programs</li>
-<li><strong>Investment prioritization:</strong> &quot;We should invest in X before Y because Z&quot;</li>
-<li><strong>Impact analysis:</strong> &quot;If we delay Project A, Projects B and C are blocked&quot;</li>
-<li><strong>Strategic alignment:</strong> Maps projects to business strategy, flags misalignment</li>
-<li><strong>What-if modeling:</strong> &quot;What if we add 2 PMs? Which projects unlock?&quot;</li>
-<p><strong>Technical Implementation:</strong></p>
-<li>Dependency graph: Projects as nodes, dependencies as edges (critical path analysis)</li>
-<li>Strategic scoring: Projects tagged with business goals (e.g., &quot;regulatory compliance,&quot; &quot;market expansion&quot;)</li>
-<li>LLM reasoning: Uses extended thinking to analyze trade-offs and recommend priorities</li>
-<li>Outputs: Strategic brief (markdown), priority matrix (CSV/JSON), dependency visualization</li>
-<p><strong>Example Usage (in Claude Code):</strong></p>
-<pre><code class="lang-">
-User: Should we prioritize Crypto Expansion or India Tax Compliance?
-Agent: [analyzes both projects]
-Agent: Recommendation: India Tax Compliance FIRST
-       Rationale:
-       - Regulatory deadline (Q2) is immovable
-       - Failure = $5M+ fines + trading suspension
-       - Crypto Expansion has flexible timeline
-       - Crypto depends on Platform Upgrade (not complete until Q3)
-       Trade-off:
-       - Crypto delayed by 1 quarter
-       - 2 PMs shift to India Tax (Cash + Crystal)
-       - Risk: Crypto team morale (mitigate: communicate timeline early)
-Agent: Draft TMT briefing?
-</code></pre>
-<hr>
-</ul></div>
+<h3 id="nice-to-have-future">⚪ Nice-to-Have (Future)</h3>
+<h4>Feature 5: Cross-Regional Coordination</h4>
+<p><strong>User Story:</strong> Timezone-aware coordination, duplicate detection across regions.</p>
+<p><strong>Why Nice-to-Have:</strong> Niche use case, complex implementation. Defer until core features proven.</p>
+<h4>Feature 8: Strategic Advisory Engine</h4>
+<p><strong>User Story:</strong> Portfolio-level analysis, investment prioritization.</p>
+<p><strong>Why Nice-to-Have:</strong> Requires full portfolio data pipeline. Impressive but not essential for MVP.</p>
+<hr></div>
 </details>
 <details open id="technical-architecture">
   <summary><h2>Technical Architecture</h2></summary>
   <div class="section-content"><h3 id="core-principle-skill-not-application">Core Principle: Skill, Not Application</h3>
-<p>This is NOT a web app. NOT a desktop app. It&#x27;s a <strong>skill</strong> (collection of instructions + scripts) that teaches AI agents how to do PM work.</p>
-<p><strong>Analogy:</strong> It&#x27;s like teaching a chef a new cuisine. You don&#x27;t build a restaurant—you provide recipes, techniques, and ingredient sourcing. The chef (AI agent) uses their existing tools (kitchen/IDE) to cook (execute PM tasks).</p>
+<p><strong>Not a web app. Not a desktop app. A skill.</strong></p>
+<p>Like teaching a chef a new cuisine—you provide recipes and techniques. The chef (AI agent) uses their existing kitchen (IDE) to cook (execute PM tasks).</p>
 <h3 id="architecture-layers">Architecture Layers</h3>
 <pre><code class="lang-">
-┌─────────────────────────────────────────────────────────────┐
-│                    AI Agent (Cursor, Claude Code, etc.)      │
-│                    [Orchestrates everything]                 │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-┌────────────────────────┴────────────────────────────────────┐
-│              Program Manager Skill                           │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  SKILL.md (Instructions)                            │    │
-│  │  - How to process meeting transcripts               │    │
-│  │  - How to track decisions                           │    │
-│  │  - How to calculate capacity                        │    │
-│  │  - How to generate reports                          │    │
-│  └─────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  Scripts (Helpers)                                   │    │
-│  │  - process_transcript.py                            │    │
-│  │  - capacity_calculator.js                           │    │
-│  │  - report_generator.sh                              │    │
-│  └─────────────────────────────────────────────────────┘    │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  Schemas (Data Models)                              │    │
-│  │  - decision.schema.json                             │    │
-│  │  - capacity.schema.json                             │    │
-│  │  - meeting.schema.json                              │    │
-│  └─────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
-                         │
-┌────────────────────────┴────────────────────────────────────┐
-│          Integration Layer (MCP Servers / APIs)              │
-│  - Jira MCP Server                                           │
-│  - Confluence MCP Server                                     │
-│  - Slack MCP Server                                          │
-│  - Calendar MCP Server (Google/Outlook)                      │
-│  - Databricks MCP Server (for advanced analytics)            │
-└──────────────────────────────────────────────────────────────┘
-                         │
-┌────────────────────────┴────────────────────────────────────┐
-│          Data Storage (Local First, Git-Friendly)            │
-│  - memory/decisions/ (JSON decision logs)                    │
-│  - memory/meetings/ (markdown summaries)                     │
-│  - memory/capacity/ (allocation snapshots)                   │
-│  - memory/reports/ (generated reports)                       │
-│  - pm.db (SQLite for indexed queries)                        │
-└──────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────┐
+│  AI Agent (Claude Code or Cursor)       │
+│  [Orchestrates everything]               │
+└────────────┬────────────────────────────┘
+             │
+┌────────────┴────────────────────────────┐
+│  Program Manager Skill                   │
+│  ┌────────────────────────────────────┐ │
+│  │  PM-SKILL.md (Master Instructions) │ │
+│  │  CLAUDE.md (for Claude Code)       │ │
+│  │  .cursorrules (for Cursor)         │ │
+│  └────────────────────────────────────┘ │
+│  ┌────────────────────────────────────┐ │
+│  │  Scripts (Helpers)                 │ │
+│  │  - process_transcript.py           │ │
+│  │  - capacity_calculator.js          │ │
+│  └────────────────────────────────────┘ │
+│  ┌────────────────────────────────────┐ │
+│  │  Schemas (Data Models)             │ │
+│  │  - decision.schema.json            │ │
+│  │  - capacity.schema.json            │ │
+│  └────────────────────────────────────┘ │
+└─────────────────────────────────────────┘
+             │
+┌────────────┴────────────────────────────┐
+│  Integration Layer                       │
+│  - Jira MCP Server (or direct API)      │
+│  - Confluence MCP Server (or direct API)│
+│  - Slack Web API (Bot Token)            │
+└──────────────────────────────────────────┘
+             │
+┌────────────┴────────────────────────────┐
+│  Data Storage (Local, Git-Friendly)      │
+│  - memory/decisions/ (JSON)              │
+│  - memory/meetings/ (markdown)           │
+│  - memory/capacity/ (JSON)               │
+│  - pm.db (SQLite for search)             │
+└──────────────────────────────────────────┘
 </code></pre>
-<h3 id="key-architectural-decisions">Key Architectural Decisions</h3>
-<h4>1. Local-First, Git-Friendly Storage</h4>
-<p><strong>Rationale:</strong> Enterprise data stays on-premise. PMs can version control their PM data. Works offline.</p>
-<p><strong>Implementation:</strong> All data stored as JSON/markdown in <code>memory/</code> directory structure. SQLite index for fast queries. Git tracks changes (&quot;What changed in our decision log last week?&quot;).</p>
-<h4>2. MCP Servers for External Integration</h4>
-<p><strong>Rationale:</strong> MCP (Model Context Protocol) is the emerging standard for AI-to-tool integration. Works across Claude Desktop, Cursor, and will expand.</p>
-<p><strong>Implementation:</strong> Core skill includes reference MCP server configs. Users install MCP servers for their tools (Jira, Slack, etc.). Skill provides fallback to direct API calls if MCP not available.</p>
-<h4>3. LLM-Agnostic Prompts</h4>
-<p><strong>Rationale:</strong> Users have different AI subscriptions (Claude, GPT, Gemini). Skill should work with any.</p>
-<p><strong>Implementation:</strong> Prompts use lowest-common-denominator techniques (clear instructions, few-shot examples). Advanced features (extended thinking, function calling) are optional enhancements.</p>
-<h4>4. Helper Scripts for Heavy Lifting</h4>
-<p><strong>Rationale:</strong> Some PM tasks (parsing Jira API, calculating capacity) are better done in Python/Node than pure prompting.</p>
-<p><strong>Implementation:</strong> Skill includes optional scripts. AI agent calls them via <code>exec</code> or imports them. Scripts have clear CLIs (<code>capacity_calculator.js --team apac --month april</code>).</p>
-<h4>5. Privacy-Aware by Design</h4>
-<p><strong>Rationale:</strong> Enterprise PMs can&#x27;t send data to cloud LLMs without approval. Skill must work with local models or approved APIs.</p>
-<p><strong>Implementation:</strong> All data stays local. User controls which LLM API is used. No telemetry, no external dependencies (except user-configured API keys).</p>
+<h3 id="key-design-decisions">Key Design Decisions</h3>
+<p>1. <strong>Local-first, Git-friendly:</strong> Enterprise data stays on-premise. Works offline.</p>
+<p>2. <strong>MCP optional, not required:</strong> Works with direct API calls if MCP unavailable.</p>
+<p>3. <strong>LLM-agnostic:</strong> Works with Claude, GPT, Gemini—whatever user has.</p>
+<p>4. <strong>Helper scripts for heavy lifting:</strong> Parsing Jira API better done in Python/Node than pure prompting.</p>
+<p>5. <strong>Privacy-aware:</strong> No telemetry, no cloud dependencies (except user-configured APIs).</p>
 <hr></div>
 </details>
-<details open id="cross-platform-compatibility-matrix">
-  <summary><h2>Cross-Platform Compatibility Matrix</h2></summary>
-  <div class="section-content"><h3 id="challenge-every-ai-coding-tool-has-different-config-formats">Challenge: Every AI Coding Tool Has Different Config Formats</h3>
-<p><strong>Problem:</strong> Cursor uses <code>.cursorrules</code>, Claude Code uses <code>CLAUDE.md</code>, Aider uses <code>.aiderrules</code>, Windsurf uses <code>.windsurfrules</code>, OpenClaw uses <code>AGENTS.md</code> + <code>SKILL.md</code>.</p>
-<p><strong>Solution:</strong> One source of truth (<code>PM-SKILL.md</code>), transpiled into each format.</p>
-<h3 id="approach-polyglot-skill-format">Approach: Polyglot Skill Format</h3>
+<details open id="platform-compatibility-claude-code-cursor-only">
+  <summary><h2>Platform Compatibility: Claude Code &amp; Cursor Only</h2></summary>
+  <div class="section-content"><h3 id="the-polyglot-approach">The Polyglot Approach</h3>
+<p><strong>Master document:</strong> <code>PM-SKILL.md</code> (platform-agnostic)  </p>
+<p><strong>Transpile targets:</strong></p>
+<ul>
+<li><code>CLAUDE.md</code> for Claude Code</li>
+<li><code>.cursorrules</code> for Cursor</li>
 <pre><code class="lang-">
 pm-skill/
-├── PM-SKILL.md               # Master document (platform-agnostic)
+├── PM-SKILL.md               # Master (source of truth)
 ├── README.md                 # Installation guide
-├── transpile.js              # Converts PM-SKILL.md → platform configs
+├── transpile.js              # PM-SKILL.md → platform configs
 ├── platforms/
-│   ├── openclaw/
-│   │   └── SKILL.md          # Generated from PM-SKILL.md
 │   ├── claude-code/
-│   │   └── CLAUDE.md         # Generated from PM-SKILL.md
-│   ├── cursor/
-│   │   └── .cursorrules      # Generated from PM-SKILL.md
-│   ├── windsurf/
-│   │   └── .windsurfrules    # Generated from PM-SKILL.md
-│   ├── aider/
-│   │   └── .aiderrules       # Generated from PM-SKILL.md
-│   └── codex/
-│       └── codex.md          # Generated from PM-SKILL.md
+│   │   └── CLAUDE.md         # Auto-generated
+│   └── cursor/
+│       └── .cursorrules      # Auto-generated
 ├── scripts/
 │   ├── process_transcript.py
 │   ├── capacity_calculator.js
@@ -486,1063 +338,459 @@ pm-skill/
 │   ├── decision.schema.json
 │   ├── capacity.schema.json
 │   └── meeting.schema.json
-└── mcp-servers/
-    ├── jira-mcp.json         # MCP server config
-    └── confluence-mcp.json   # MCP server config
+└── integrations/
+    ├── jira-mcp.json         # MCP config (optional)
+    ├── confluence-mcp.json   # MCP config (optional)
+    └── slack-app-setup.md    # Bot Token setup guide
 </code></pre>
+</ul>
 <h3 id="installation-per-platform">Installation Per Platform</h3>
-<h4>OpenClaw / Claude Code</h4>
+<h4>Claude Code</h4>
 <pre><code class="lang-bash">
-git clone https://github.com/rajanr/pm-skill.git ~/.openclaw/skills/pm-skill
-# Auto-detected by OpenClaw at startup
+git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
+cd ~/pm-skill &amp;&amp; npm run install:claude
+# Copies CLAUDE.md to Claude Code config directory
 </code></pre>
 <h4>Cursor</h4>
 <pre><code class="lang-bash">
 git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
 cd ~/pm-skill &amp;&amp; npm run install:cursor
-# Copies .cursorrules to project root, configures MCP
+# Copies .cursorrules to project root
 </code></pre>
-<h4>Windsurf</h4>
-<pre><code class="lang-bash">
-git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
-cd ~/pm-skill &amp;&amp; npm run install:windsurf
-# Copies .windsurfrules to project root
-</code></pre>
-<h4>Aider</h4>
-<pre><code class="lang-bash">
-git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
-cd ~/pm-skill &amp;&amp; npm run install:aider
-# Copies .aiderrules to project root
-</code></pre>
-<h4>Universal (Manual Setup)</h4>
-<pre><code class="lang-bash">
-git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
-# Read PM-SKILL.md and paste instructions into your AI tool&#x27;s system prompt
-</code></pre>
-<h3 id="compatibility-matrix">Compatibility Matrix</h3>
+<h3 id="compatibility-matrix-simplified">Compatibility Matrix (Simplified)</h3>
 <div class="table-wrap"><table>
-<thead><tr><th>Platform</th><th>Config Format</th><th>MCP Support</th><th>Script Execution</th><th>Installation Difficulty</th><th>Notes</th></tr></thead><tbody>
-<tr><td>**OpenClaw**</td><td>`SKILL.md`</td><td>✅ Yes (native)</td><td>✅ Yes (`exec` tool)</td><td>🟢 Easy</td><td>First-class support, auto-loads skills</td></tr>
-<tr><td>**Claude Code**</td><td>`CLAUDE.md`</td><td>✅ Yes (native)</td><td>✅ Yes (via terminal)</td><td>🟢 Easy</td><td>Official Anthropic tool, MCP support</td></tr>
-<tr><td>**Cursor**</td><td>`.cursorrules`</td><td>⚠️ Partial (beta)</td><td>✅ Yes (terminal panel)</td><td>🟡 Medium</td><td>MCP in beta, rules files can be large</td></tr>
-<tr><td>**Windsurf**</td><td>`.windsurfrules`</td><td>❌ Not yet</td><td>✅ Yes (terminal)</td><td>🟡 Medium</td><td>Similar to Cursor, evolving rapidly</td></tr>
-<tr><td>**Aider**</td><td>`.aiderrules`</td><td>❌ Not yet</td><td>✅ Yes (shell)</td><td>🟢 Easy</td><td>CLI-first, good for scripting</td></tr>
-<tr><td>**OpenAI Codex**</td><td>`codex.md` / system prompt</td><td>⚠️ Via GPT Actions</td><td>⚠️ Limited</td><td>🔴 Hard</td><td>No built-in MCP, requires API workarounds</td></tr>
-<tr><td>**GitHub Copilot**</td><td>Instructions file</td><td>❌ No</td><td>❌ Very limited</td><td>🔴 Hard</td><td>Not designed for agentic workflows</td></tr>
-<tr><td>**Any LLM**</td><td>Copy-paste PM-SKILL.md</td><td>❌ Manual APIs</td><td>⚠️ User-dependent</td><td>🟡 Medium</td><td>Fallback: user provides API access</td></tr>
+<thead><tr><th>Platform</th><th>Config Format</th><th>MCP Support</th><th>Installation</th><th>Notes</th></tr></thead><tbody>
+<tr><td><strong>Claude Code</strong></td><td><code>CLAUDE.md</code></td><td>✅ Native</td><td>🟢 Easy</td><td>Official Anthropic tool</td></tr>
+<tr><td><strong>Cursor</strong></td><td><code>.cursorrules</code></td><td>⚠️ Beta</td><td>🟡 Medium</td><td>MCP in beta, works well</td></tr>
 </tbody></table></div>
-<h3 id="transpilation-strategy">Transpilation Strategy</h3>
-<p><strong>Master Format (<code>PM-SKILL.md</code>):</strong></p>
+<p><strong>Why only these two?</strong></p>
 <ul>
-<li>Uses standard markdown with tagged sections: <code>## [SECTION:meeting_intelligence]</code></li>
-<li>Each section includes: description, capabilities, example prompts, script references</li>
-<li>Platform-agnostic instructions: &quot;When asked to process a meeting transcript, do X&quot;</li>
-<p><strong>Transpiler (<code>transpile.js</code>):</strong></p>
-<li>Parses <code>PM-SKILL.md</code> via markdown AST</li>
-<li>Extracts sections, converts to platform-specific format:</li>
-<li><strong>OpenClaw:</strong> Wraps in AgentSkills format with triggers</li>
-<li><strong>Cursor:</strong> Compacts into <code>.cursorrules</code> syntax (500-line limit workaround: reference external files)</li>
-<li><strong>Aider:</strong> Converts to imperative commands (Aider&#x27;s style)</li>
-<li><strong>Claude Code:</strong> Adds MCP server references, formats as <code>CLAUDE.md</code></li>
-<li>Validates output against platform schemas</li>
-<li>Runs on <code>npm run build</code> or as GitHub Action (CI/CD)</li>
-<p><strong>Version Management:</strong></p>
-<li>Source of truth: <code>PM-SKILL.md</code> (semver versioning)</li>
-<li>Generated files: <code># Auto-generated from PM-SKILL.md v1.2.0 - DO NOT EDIT</code></li>
-<li>Users update via <code>git pull &amp;&amp; npm run install:$platform</code></li>
-<hr>
-</ul></div>
+<li>Both have strong MCP support (or will soon)</li>
+<li>Both are mainstream among technical PMs</li>
+<li>Rajan uses both daily</li>
+<li>Simpler to maintain 2 platforms well than 6 platforms poorly</li>
+</ul>
+<hr></div>
 </details>
-<details open id="mcp-integration-strategy">
-  <summary><h2>MCP Integration Strategy</h2></summary>
-  <div class="section-content"><h3 id="what-is-mcp-model-context-protocol">What is MCP (Model Context Protocol)?</h3>
-<p><strong>Definition:</strong> Open protocol for connecting AI agents to external data sources and tools. Think &quot;USB for AI tools.&quot;</p>
-<p><strong>Created by:</strong> Anthropic (makers of Claude)</p>
-<p><strong>Why it matters:</strong> Every AI tool company is building their own API connectors. MCP standardizes this. Write one MCP server → works across all MCP-compatible tools.</p>
-<h3 id="mcp-servers-for-pm-skill">MCP Servers for PM Skill</h3>
-<h4>Priority 1 (MVP): Jira MCP Server</h4>
-<p><strong>Why:</strong> Jira is the system of record for most PMs. Ticket creation, assignment, status—all in Jira.</p>
+<details open id="integration-strategy">
+  <summary><h2>Integration Strategy</h2></summary>
+  <div class="section-content"><h3 id="jira-integration-mvp-works-today">Jira Integration ✅ MVP (Works Today)</h3>
+<p><strong>Approach:</strong> Direct API first, MCP optional.</p>
+<p><strong>Why:</strong> Jira is the system of record. Must work reliably.</p>
+<p><strong>Implementation:</strong></p>
+<p>1. <strong>Direct API (fallback, always works):</strong></p>
+<ul>
+<li>User provides: Jira URL, API token</li>
+<li>Scripts use Jira REST API (create tickets, search, update)</li>
+<li>Stored in <code>~/.pm-skill/config.json</code></li>
+<p>2. <strong>MCP Server (optional, cleaner):</strong></p>
+<li>If user has Jira MCP server configured, use that</li>
+<li>Provides: <code>jira.search</code>, <code>jira.create_ticket</code>, <code>jira.update_ticket</code></li>
+<li>Agent auto-detects MCP availability, falls back to direct API if missing</li>
+</ul>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><code>jira.search_tickets(jql)</code> - Query Jira with JQL</li>
-<li><code>jira.create_ticket(project, summary, description, type, assignee)</code> - Create tickets</li>
-<li><code>jira.update_ticket(ticket_id, fields)</code> - Update ticket fields</li>
-<li><code>jira.add_comment(ticket_id, comment)</code> - Add comments</li>
-<li><code>jira.get_project_meta(project_key)</code> - Get project metadata</li>
-<p><strong>Implementation:</strong></p>
-<li>Open-source MCP server: https://github.com/modelcontextprotocol/servers/tree/main/src/jira</li>
-<li>Config: <code>mcp-servers/jira-mcp.json</code> (user provides Jira URL + API token)</li>
-<li>Fallback: Direct Jira REST API if MCP not available</li>
+<li>Search tickets (JQL queries)</li>
+<li>Create tickets (project, summary, description, assignee)</li>
+<li>Update tickets (status, fields, comments)</li>
 </ul>
-<h4>Priority 2 (MVP): Confluence MCP Server</h4>
-<p><strong>Why:</strong> Meeting notes, documentation, decision records live in Confluence.</p>
+<h3 id="confluence-integration-mvp-works-today">Confluence Integration ✅ MVP (Works Today)</h3>
+<p><strong>Approach:</strong> Direct API first, MCP optional (same as Jira).</p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><code>confluence.search(query)</code> - Search Confluence content</li>
-<li><code>confluence.get_page(page_id)</code> - Get page content</li>
-<li><code>confluence.create_page(space, title, content)</code> - Create new page</li>
-<li><code>confluence.update_page(page_id, content)</code> - Update existing page</li>
-<p><strong>Implementation:</strong></p>
-<li>Custom MCP server (Confluence API is simpler than Jira)</li>
-<li>Config: <code>mcp-servers/confluence-mcp.json</code></li>
-<li>Fallback: Direct Confluence REST API</li>
+<li>Search pages</li>
+<li>Get page content</li>
+<li>Create/update pages</li>
+<li>Publish meeting notes to Confluence space</li>
 </ul>
-<h4>Priority 3 (Post-MVP): Slack MCP Server</h4>
-<p><strong>Why:</strong> Decision discussions happen in Slack. Automated notifications for follow-ups.</p>
+<h3 id="slack-integration-api-only-mcp-not-ready">Slack Integration ⚠️ API Only (MCP Not Ready)</h3>
+<p><strong>Current Reality:</strong> Slack MCP via Cursor is NOT enabled as of March 2026.</p>
+<p><strong>Approach:</strong> Slack App (Bot Token) + Web API.</p>
+<p><strong>Setup Steps (documented in <code>slack-app-setup.md</code>):</strong></p>
+<p>1. Create Slack App at api.slack.com/apps</p>
+<p>2. Add Bot Token Scopes: <code>chat:write</code>, <code>channels:history</code>, <code>search:read</code></p>
+<p>3. Install app to workspace</p>
+<p>4. Copy Bot Token to <code>~/.pm-skill/config.json</code></p>
 <p><strong>Capabilities:</strong></p>
 <ul>
-<li><code>slack.search_messages(query, channel)</code> - Search message history</li>
-<li><code>slack.send_message(channel, text)</code> - Send message</li>
-<li><code>slack.get_channel_history(channel, limit)</code> - Get recent messages</li>
-<p><strong>Implementation:</strong></p>
-<li>Use existing Slack MCP server or build minimal version</li>
-<li>Requires Slack Bot Token (user sets up)</li>
+<li>Search messages: <code>POST /search.messages</code></li>
+<li>Send messages: <code>POST /chat.postMessage</code></li>
+<li>Get channel history: <code>GET /conversations.history</code></li>
 </ul>
-<h4>Priority 4 (Post-MVP): Calendar MCP Server (Google/Outlook)</h4>
-<p><strong>Why:</strong> Capacity planning requires knowing who&#x27;s OOO. Meeting scheduling needs free/busy.</p>
-<p><strong>Capabilities:</strong></p>
-<ul>
-<li><code>calendar.list_events(start_date, end_date)</code> - Get events in range</li>
-<li><code>calendar.find_free_time(attendees, duration, constraints)</code> - Suggest meeting times</li>
-<li><code>calendar.create_event(title, start, end, attendees)</code> - Schedule meeting</li>
-<p><strong>Implementation:</strong></p>
-<li>Google Calendar API (OAuth2)</li>
-<li>Microsoft Graph API for Outlook (OAuth2)</li>
-<li>Complexity: User auth flow (can be simplified with app passwords)</li>
-</ul>
-<h4>Stretch (Future): Databricks MCP Server</h4>
-<p><strong>Why:</strong> Advanced analytics on portfolio data, capacity trends, historical patterns.</p>
-<p><strong>Capabilities:</strong></p>
-<ul>
-<li><code>databricks.run_query(sql)</code> - Execute SQL query</li>
-<li><code>databricks.get_table(table_name)</code> - Fetch table data</li>
-<p><strong>Implementation:</strong></p>
-<li>Databricks REST API + SQL Warehouse</li>
-<li>Requires Databricks workspace + access token</li>
-<li>Target: Enterprise deployments (post open-source traction)</li>
-</ul>
-<h3 id="mcp-vs-direct-api-integration">MCP vs. Direct API Integration</h3>
-<p><strong>Philosophy:</strong> MCP is preferred but not required.</p>
 <p><strong>Implementation:</strong></p>
 <ul>
-<li>Skill provides instructions for BOTH MCP and direct API approaches</li>
-<li>AI agent checks: &quot;Is MCP server configured?&quot; → Yes: use MCP. No: use direct API.</li>
-<li>Helper scripts abstract this: <code>scripts/jira_client.js</code> handles both paths transparently</li>
-<p><strong>User experience:</strong></p>
-<li><strong>With MCP:</strong> <code>User: Create a Jira ticket</code> → Agent calls MCP → Done</li>
-<li><strong>Without MCP:</strong> <code>User: Create a Jira ticket</code> → Agent prompts: &quot;I need your Jira API token&quot; → Stores securely → Uses direct API → Done</li>
-<hr>
-</ul></div>
+<li>Use <code>@slack/web-api</code> npm package or direct REST</li>
+<li>Scripts handle auth, rate limits, error handling</li>
+</ul>
+<p><strong>Future:</strong> When Cursor/Claude Code enable Slack MCP, add MCP path as primary with API fallback.</p>
+<h3 id="calendar-integration-nice-to-have-future">Calendar Integration ⚪ Nice-to-Have (Future)</h3>
+<p><strong>Why deferred:</strong> Capacity planning works without it for MVP. OAuth flows add complexity.</p>
+<p><strong>If built later:</strong> Google Calendar API + Microsoft Graph API.</p>
+<h3 id="databricks-integration-nice-to-have-enterprise">Databricks Integration ⚪ Nice-to-Have (Enterprise)</h3>
+<p><strong>Why deferred:</strong> Advanced analytics not needed for demo. Target enterprise deployments post-traction.</p>
+<hr></div>
 </details>
-<details open id="mvp-scope-what-to-build-first">
-  <summary><h2>MVP Scope (What to Build First)</h2></summary>
-  <div class="section-content"><h3 id="mvp-definition-demo-ready-in-4-weeks">MVP Definition: &quot;Demo-Ready in 4 Weeks&quot;</h3>
-<p><strong>Goal:</strong> Rajan can demo this at next Optiver PMO meeting (April 2026) and post about it on LinkedIn with a working GitHub repo.</p>
-<p><strong>Non-Goal:</strong> Feature parity with enterprise PM tools. This is a skill, not a SaaS replacement.</p>
-<h3 id="mvp-feature-set-80-20-rule">MVP Feature Set (80/20 Rule)</h3>
-<h4>✅ IN SCOPE for MVP</h4>
-<p><strong>1. Meeting Intelligence Pipeline (Core)</strong></p>
+<details open id="mvp-scope-2-week-build-plan">
+  <summary><h2>MVP Scope: 2-Week Build Plan</h2></summary>
+  <div class="section-content"><h3 id="goal-demo-ready-for-raul-session">Goal: Demo-Ready for Raul Session</h3>
+<p><strong>What &quot;demo-ready&quot; means:</strong></p>
 <ul>
-<li>✅ Process Granola transcript exports (markdown format)</li>
-<li>✅ Extract action items (LLM-based, works with any model)</li>
-<li>✅ Generate Jira tickets via API (direct API, no MCP required)</li>
-<li>✅ Save meeting summary to markdown file</li>
-<li>❌ Auto-scheduling follow-ups (post-MVP)</li>
-<li>❌ Retrospective linkage (post-MVP)</li>
-<p><strong>2. Decision Log (Core)</strong></p>
-<li>✅ Manual decision entry via CLI/prompts</li>
-<li>✅ Structured storage (JSON files)</li>
-<li>✅ Basic search (SQLite FTS or simple grep)</li>
-<li>❌ Auto-extraction from Slack/email (post-MVP)</li>
-<li>❌ Outcome tracking (post-MVP)</li>
-<p><strong>3. Capacity Planning (Lite Version)</strong></p>
-<li>✅ Manual capacity entry (person, project, % allocation, dates)</li>
-<li>✅ Overallocation detection (simple math)</li>
-<li>✅ Output: markdown table</li>
-<li>❌ Integration with Jira time tracking (post-MVP)</li>
-<li>❌ Gantt charts / visualization (post-MVP)</li>
-<p><strong>4. Technical Debt Quantification (Core)</strong></p>
-<li>✅ Tag Jira tickets as debt (manual or via LLM on description analysis)</li>
-<li>✅ Calculate total debt (sum story points)</li>
-<li>✅ Basic cost model (story points × avg velocity × cost per dev-day)</li>
-<li>❌ Trend analysis (post-MVP)</li>
-<li>❌ Link to meeting notes (post-MVP)</li>
-<p><strong>5. Stakeholder Communication (Lite Version)</strong></p>
-<li>✅ Status report template (markdown)</li>
-<li>✅ Auto-populate from Jira data (pull via API)</li>
-<li>❌ Export to PDF/PPTX (post-MVP)</li>
-<li>❌ Multi-channel delivery (post-MVP)</li>
-<p><strong>6. Cross-Platform Compatibility (Core)</strong></p>
-<li>✅ OpenClaw (<code>SKILL.md</code> format)</li>
-<li>✅ Claude Code (<code>CLAUDE.md</code> format)</li>
-<li>✅ Cursor (<code>.cursorrules</code> format)</li>
-<li>⚠️ Windsurf (basic support, not tested)</li>
-<li>⚠️ Aider (basic support, not tested)</li>
-<li>❌ Codex (post-MVP, requires different approach)</li>
+<li>Rajan can process a meeting transcript → Jira tickets in &lt;2 minutes</li>
+<li>Decision log is searchable</li>
+<li>Status report generates automatically</li>
+<li>Works in Claude Code AND Cursor</li>
+<li>GitHub repo is public with clear README</li>
 </ul>
-<h4>❌ OUT OF SCOPE for MVP</h4>
+<h3 id="in-scope-for-mvp">✅ In Scope for MVP</h3>
+<p><strong>Week 1:</strong></p>
 <ul>
-<li>Intake &amp; Request Formalization (useful but not demo-critical)</li>
-<li>Strategic Advisory Engine (requires full portfolio data)</li>
-<li>Cross-Regional Coordination (niche, complex)</li>
-<li>MCP server setup (nice-to-have, not required for demo)</li>
-<li>Visual dashboards (can use markdown tables for MVP)</li>
+<li>Meeting transcript parser (Granola format → action items)</li>
+<li>Jira integration (direct API, create tickets)</li>
+<li>Decision log (JSON storage + basic search)</li>
+<li>Meeting summary (markdown output)</li>
+</ul>
+<p><strong>Week 2:</strong></p>
+<ul>
+<li>Status report generator (template + Jira data)</li>
+<li>Cross-platform support (CLAUDE.md + .cursorrules)</li>
+<li>Documentation (README, installation guide)</li>
+<li>Demo dry-run (Rajan practices)</li>
+</ul>
+<h3 id="out-of-scope-for-mvp">❌ Out of Scope for MVP</h3>
+<ul>
+<li>Capacity planning (Phase 2)</li>
+<li>Technical debt quantification (Phase 2)</li>
+<li>Intake formalization (Phase 2)</li>
+<li>Auto-scheduling follow-ups (nice-to-have)</li>
+<li>PDF/PPTX export (markdown is fine for demo)</li>
+<li>MCP server setup (direct API works, MCP optional)</li>
 <li>Multi-user collaboration (single-user first)</li>
-<li>Real-time Slack/email integration (polling is enough)</li>
-<li>Advanced analytics (Databricks integration)</li>
-<li>Web UI (CLI + AI agent interaction only)</li>
+<li>Real-time Slack notifications (polling is enough)</li>
+<li>Advanced analytics (Databricks)</li>
 </ul>
-<h3 id="mvp-user-flow-demo-script">MVP User Flow (Demo Script)</h3>
-<p><strong>Scenario:</strong> Rajan processes last week&#x27;s PMO meeting and generates a status report.</p>
-<p><strong>Step 1: Install Skill</strong></p>
-<pre><code class="lang-bash">
-cd ~/.openclaw/skills
-git clone https://github.com/rajanr/pm-skill.git
-# Skill auto-loads on next OpenClaw session
-</code></pre>
-<p><strong>Step 2: Configure Jira API</strong></p>
-<pre><code class="lang-bash">
-# In OpenClaw chat
-User: Configure PM Skill with my Jira
-Agent: I need your Jira base URL and API token
-User: [provides credentials]
-Agent: Saved to ~/.pm-skill/config.json
-</code></pre>
-<p><strong>Step 3: Process Meeting Transcript</strong></p>
-<pre><code class="lang-bash">
-# In OpenClaw chat
+<hr></div>
+</details>
+<details open id="demo-script-what-rajan-shows-raul">
+  <summary><h2>Demo Script: What Rajan Shows Raul</h2></summary>
+  <div class="section-content"><p><strong>Duration:</strong> 10 minutes  </p>
+<p><strong>Platform:</strong> Claude Code (Jarvis laptop)  </p>
+<p><strong>Audience:</strong> Raul (Optiver PMO stakeholder)</p>
+<h3 id="setup-pre-demo">Setup (Pre-Demo)</h3>
+<ul>
+<li>Granola transcript from last PMO meeting ready</li>
+<li>Jira API configured</li>
+<li>Decision log has 2-3 sample entries</li>
+</ul>
+<h3 id="act-1-the-problem-2-min">Act 1: The Problem (2 min)</h3>
+<p><strong>Rajan:</strong> &quot;Last Monday&#x27;s PMO meeting—90 minutes. I spent 2 hours afterward transcribing action items, creating Jira tickets, following up with owners. That&#x27;s 2 hours of manual work for a 90-minute meeting.&quot;</p>
+<p><strong>Raul:</strong> [nods knowingly]</p>
+<h3 id="act-2-the-solution-5-min">Act 2: The Solution (5 min)</h3>
+<p><strong>Rajan:</strong> &quot;Watch this.&quot;</p>
+<p><strong>[Opens Claude Code, types]</strong></p>
+<pre><code class="lang-">
 User: Process the PMO meeting transcript from last Monday
-Agent: Found ~/Downloads/pmo-meeting-2026-03-10.md
-Agent: [reads transcript, extracts actions]
-Agent: Found:
+</code></pre>
+<p><strong>[Agent reads transcript, 5 seconds]</strong></p>
+<pre><code class="lang-">
+Agent: Found transcript: pmo-meeting-2026-03-10.md
+Agent: Extracted:
        - 8 action items
        - 3 decisions
        - 2 risks
 Agent: Create Jira tickets?
-User: Yes
-Agent: [creates 5 tickets in APAC-PMO project]
-Agent: Created: APAC-123, APAC-124, APAC-125, APAC-126, APAC-127
-Agent: Summary saved to memory/meetings/2026-03-10-pmo.md
 </code></pre>
-<p><strong>Step 4: Log a Decision</strong></p>
-<pre><code class="lang-bash">
-User: Log decision: We assigned Raj as AI Champion for PMO
-Agent: [prompts for details]
-Agent: Decision logged: decision-2026-03-10-ai-champion.json
-Agent: Participants: Linus, Lewen, Raj, Cash, Crystal, Ma
-Agent: Rationale: Raj has 4 years experience with AI automation
+<p><strong>Rajan:</strong> &quot;Yes&quot;</p>
+<p><strong>[Agent creates tickets, 10 seconds]</strong></p>
+<pre><code class="lang-">
+Agent: Created 5 Jira tickets:
+       - APAC-123: Review capacity planning tool options (Cash)
+       - APAC-124: Schedule Amsterdam handoff call (Rajan)
+       - APAC-125: Document decision criteria for PM assignment (Crystal)
+       - APAC-126: Quantify technical debt backlog (Ma)
+       - APAC-127: Draft Q2 PMO OKRs (Linus)
+Agent: Meeting summary saved to memory/meetings/2026-03-10-pmo.md
 </code></pre>
-<p><strong>Step 5: Check Capacity</strong></p>
-<pre><code class="lang-bash">
-User: Show APAC PMO capacity for next month
-Agent: [reads memory/capacity/apac-allocations.json]
-Agent: Capacity Summary (April 2026):
-       | Person | Allocation | Projects |
-       |--------|-----------|----------|
-       | Rajan  | 120%      | 3 (OVER) |
-       | Cash   | 85%       | 2        |
-       | Crystal| 90%       | 2        |
-       | Ma     | 60%       | 1 (OOO)  |
-Agent: ⚠️ Rajan overallocated - suggest defer 1 project
+<p><strong>[Shows Jira—tickets are there, correctly assigned]</strong></p>
+<p><strong>Raul:</strong> &quot;Holy shit.&quot;</p>
+<h3 id="act-3-decision-log-2-min">Act 3: Decision Log (2 min)</h3>
+<p><strong>Rajan:</strong> &quot;Remember when we declined a PM for the M365 migration last year? I can search for that.&quot;</p>
+<p><strong>[Types]</strong></p>
+<pre><code class="lang-">
+User: Why didn&#x27;t we assign a PM to M365 migration?
 </code></pre>
-<p><strong>Step 6: Calculate Technical Debt</strong></p>
-<pre><code class="lang-bash">
-User: Calculate technical debt for Enterprise Data Program
-Agent: [queries Jira for tickets tagged &quot;tech-debt&quot;]
-Agent: Found 23 tickets, 247 story points
-Agent: Estimated: ~400 dev-days, $600k AUD cost
-Agent: Top 3 Items:
-       1. Data encryption backlog (80 days)
-       2. Manual ETL workaround (60 days)
-       3. Legacy API deprecation (40 days)
+<p><strong>[Agent searches decision log, instant]</strong></p>
+<pre><code class="lang-">
+Agent: Decision ABC-2024-Q3-014: &quot;M365 Migration - PM Request Declined&quot;
+       Date: Sept 15, 2024
+       Rationale: Team estimated &lt;3 months, no cross-regional dependencies
+       Outcome: Took 5 months, missed compliance dependencies
+       Lesson: Always assign PM to compliance-touching projects
 </code></pre>
-<p><strong>Step 7: Generate Status Report</strong></p>
-<pre><code class="lang-bash">
+<p><strong>Raul:</strong> &quot;We need this.&quot;</p>
+<h3 id="act-4-status-report-1-min">Act 4: Status Report (1 min)</h3>
+<p><strong>Rajan:</strong> &quot;And I can generate status reports automatically.&quot;</p>
+<p><strong>[Types]</strong></p>
+<pre><code class="lang-">
 User: Generate weekly status report for TMT
-Agent: [pulls Jira data, meeting notes, decision log]
-Agent: Generated: reports/2026-03-11-tmt-update.md
-Agent: Includes:
-       - Project status (3 on-track, 1 at-risk)
-       - Risks (2 active: vendor delay, capacity)
-       - Decisions (1 pending: India Tax PM assignment)
-       - Next actions (4 items)
-Agent: Review report?
-User: Yes
-[Agent displays markdown, Rajan reviews]
-User: Send to Slack #pmo-updates
-Agent: Posted to Slack ✅
 </code></pre>
-<p><strong>Demo Duration:</strong> 10 minutes  </p>
-<p><strong>Audience Reaction:</strong> &quot;Holy shit, I can do this too?&quot;  </p>
-<p><strong>Outcome:</strong> 5 team members ask for setup help. Linus asks to present at next town hall.</p>
-<h3 id="mvp-success-criteria">MVP Success Criteria</h3>
-<p><strong>Must Have:</strong></p>
+<p><strong>[Agent pulls Jira data, generates markdown, 15 seconds]</strong></p>
+<pre><code class="lang-">
+Agent: Generated reports/2026-03-11-tmt-update.md
+       Includes: project status, risks, decisions, next actions
+       Post to Slack #pmo-updates?
+</code></pre>
+<p><strong>Rajan:</strong> &quot;Not yet, let me review.&quot; <strong>[Opens file, shows clean markdown]</strong></p>
+<p><strong>Raul:</strong> &quot;How do I get this?&quot;</p>
+<h3 id="outcome">Outcome</h3>
 <ul>
-<li>✅ Rajan can process a meeting transcript → Jira tickets in &lt;2 minutes</li>
-<li>✅ Decision log is searchable (&quot;Why did we decline X?&quot;)</li>
-<li>✅ Capacity calculation flags overallocations</li>
-<li>✅ Status report generates in &lt;30 seconds</li>
-<li>✅ Works in OpenClaw and Claude Code</li>
-<li>✅ GitHub repo is public with README, examples</li>
-<li>✅ Can be installed by another PM in &lt;15 minutes</li>
-<p><strong>Nice to Have:</strong></p>
-<li>⚠️ Works in Cursor (tested on Rajan&#x27;s machine)</li>
-<li>⚠️ MCP server configs provided (even if not required)</li>
-<li>⚠️ Video demo (2-min screencast for README)</li>
-<p><strong>Deferred:</strong></p>
-<li>❌ PDF export (markdown is fine for MVP)</li>
-<li>❌ Multi-user (single-user is enough)</li>
-<li>❌ Advanced analytics (basic aggregation is enough)</li>
+<li>Raul commits to piloting with APAC PMO team</li>
+<li>Asks to present at next town hall</li>
+<li>Rajan gets 3 DMs from other PMs: &quot;Can you set this up for me?&quot;</li>
 </ul>
-<h3 id="mvp-timeline-4-weeks">MVP Timeline (4 Weeks)</h3>
-<p><strong>Week 1: Core Infrastructure</strong></p>
-<ul>
-<li>Day 1-2: Repo setup, skill architecture, schema design</li>
-<li>Day 3-4: Meeting transcript parser (Python script + LLM integration)</li>
-<li>Day 5-7: Jira API integration (direct REST, no MCP yet)</li>
-<p><strong>Week 2: Core Features</strong></p>
-<li>Day 1-3: Decision log (JSON storage + SQLite search)</li>
-<li>Day 4-5: Capacity tracker (manual entry + overallocation math)</li>
-<li>Day 6-7: Technical debt calculator (Jira query + cost model)</li>
-<p><strong>Week 3: Cross-Platform Compatibility</strong></p>
-<li>Day 1-2: <code>PM-SKILL.md</code> master document</li>
-<li>Day 3: OpenClaw <code>SKILL.md</code> transpilation</li>
-<li>Day 4: Claude Code <code>CLAUDE.md</code> transpilation</li>
-<li>Day 5: Cursor <code>.cursorrules</code> transpilation</li>
-<li>Day 6-7: Test on all 3 platforms (Jarvis, local Claude Code, Cursor)</li>
-<p><strong>Week 4: Polish &amp; Demo Prep</strong></p>
-<li>Day 1-2: Status report generator (markdown template + Jira data)</li>
-<li>Day 3: README, installation guide, examples</li>
-<li>Day 4: Video demo (2-min screencast)</li>
-<li>Day 5: Internal demo dry-run (Rajan practices)</li>
-<li>Day 6: Buffer for bugs/fixes</li>
-<li>Day 7: Ship 🚀</li>
-<p><strong>Execution Model:</strong></p>
-<li>Rajan: Product decisions, testing, demo delivery</li>
-<li>Jarvis (this agent): Architecture, code review, docs</li>
-<li>Sub-agents: Coding work (transpiler, scripts, schema)</li>
-<li>External help: Maybe 1 contractor for Jira MCP server (if time allows)</li>
-<hr>
-</ul></div>
+<hr></div>
 </details>
 <details open id="success-metrics">
   <summary><h2>Success Metrics</h2></summary>
-  <div class="section-content"><h3 id="primary-metrics-first-6-months">Primary Metrics (First 6 Months)</h3>
+  <div class="section-content"><h3 id="primary-metrics-6-months">Primary Metrics (6 Months)</h3>
 <p><strong>GitHub Traction:</strong></p>
 <ul>
-<li>🎯 Target: 1,000 stars</li>
-<li>🎯 Target: 100 forks</li>
-<li>🎯 Target: 50 contributors (issues, PRs, discussions)</li>
-<li><strong>Why it matters:</strong> Proof of external interest. GitHub stars = developer credibility.</li>
+<li>🎯 1,000 stars</li>
+<li>🎯 100 forks</li>
+<li>🎯 50 community contributors</li>
+</ul>
 <p><strong>LinkedIn Engagement:</strong></p>
-<li>🎯 Target: 10 posts about PM Skill, 50k+ impressions total</li>
-<li>🎯 Target: 500+ profile views from target audience (PMs, PMO leaders)</li>
-<li>🎯 Target: 20+ DMs asking about the skill</li>
-<li><strong>Why it matters:</strong> LinkedIn = professional credibility. Impressions = reach. DMs = qualified interest.</li>
-<p><strong>Internal Adoption (Optiver PMO):</strong></p>
-<li>🎯 Target: 3+ team members actively using skill by Month 2</li>
-<li>🎯 Target: Presented at Optiver town hall or PMO showcase</li>
-<li>🎯 Target: Mentioned in PMO quarterly review as &quot;innovation&quot;</li>
-<li><strong>Why it matters:</strong> Internal validation = resume bullet. External prospects see &quot;used in production at trading firm.&quot;</li>
-<p><strong>External Consulting / Job Offers:</strong></p>
-<li>🎯 Target: 3+ inbound inquiries for consulting/advisory work</li>
-<li>🎯 Target: 1+ company asking for custom deployment</li>
-<li><strong>Why it matters:</strong> Monetization proof-of-concept. Validates market need.</li>
-</ul>
-<h3 id="secondary-metrics-engagement-quality">Secondary Metrics (Engagement Quality)</h3>
-<p><strong>Community Health:</strong></p>
 <ul>
-<li>📊 GitHub issues: &gt;50% response rate within 48 hours</li>
-<li>📊 Discussions: Active community helping each other (not just Rajan)</li>
-<li>📊 PRs: At least 5 external contributions merged</li>
-<p><strong>User Testimonials:</strong></p>
-<li>📊 Target: 10+ public testimonials (LinkedIn, GitHub discussions, Twitter)</li>
-<li>📊 Example: &quot;Saved me 10 hours/week&quot; or &quot;Got promoted after demoing this to my VP&quot;</li>
-<p><strong>Content Performance:</strong></p>
-<li>📊 Blog post / deep-dive article: 1,000+ views</li>
-<li>📊 Video demo: 500+ views (YouTube or Loom embed)</li>
-<li>📊 Mentions in PM communities (Reddit r/projectmanagement, PM Twitter)</li>
+<li>🎯 10 posts, 50k+ total impressions</li>
+<li>🎯 500+ profile views from PMs</li>
+<li>🎯 20+ DMs asking about the skill</li>
 </ul>
-<h3 id="leading-indicators-first-30-days">Leading Indicators (First 30 Days)</h3>
-<p><strong>Week 1 (Launch):</strong></p>
+<p><strong>Internal Adoption:</strong></p>
 <ul>
-<li>✅ Repo published, README complete</li>
-<li>✅ Posted on LinkedIn (Rajan&#x27;s network)</li>
-<li>✅ Shared in 2-3 PM communities (Reddit, Slack groups)</li>
-<li>🎯 Target: 50 stars, 200 views</li>
-<p><strong>Week 2 (Initial Traction):</strong></p>
-<li>✅ First external GitHub issue opened</li>
-<li>✅ First external user testimonial</li>
-<li>🎯 Target: 150 stars, 3 community discussions</li>
-<p><strong>Week 3-4 (Momentum):</strong></p>
-<li>✅ Second LinkedIn post (deep-dive feature walkthrough)</li>
-<li>✅ First PR from external contributor</li>
-<li>✅ Internal demo delivered (Optiver PMO)</li>
-<li>🎯 Target: 300 stars, first consulting inquiry</li>
+<li>🎯 3+ Optiver PMO team members using actively</li>
+<li>🎯 Presented at town hall</li>
+<li>🎯 Mentioned in PMO quarterly review</li>
 </ul>
-<h3 id="vanity-metrics-to-ignore">Vanity Metrics to Ignore</h3>
-<p><strong>Don&#x27;t optimize for:</strong></p>
+<p><strong>External Consulting:</strong></p>
 <ul>
-<li>❌ npm downloads (this isn&#x27;t a package, it&#x27;s a skill)</li>
-<li>❌ Twitter followers (LinkedIn is the PM platform)</li>
-<li>❌ Hacker News points (not the target audience)</li>
-<li>❌ Total lines of code (simplicity &gt; bloat)</li>
-<p><strong>Why:</strong> PMs aren&#x27;t on Hacker News. They&#x27;re on LinkedIn. Optimize for where the audience is.</p>
-<hr>
-</ul></div>
+<li>🎯 3+ inbound inquiries</li>
+<li>🎯 1+ company asking for custom deployment</li>
+</ul>
+<h3 id="leading-indicators-30-days">Leading Indicators (30 Days)</h3>
+<p><strong>Week 1:</strong> 50 stars, 200 views  </p>
+<p><strong>Week 2:</strong> First external GitHub issue  </p>
+<p><strong>Week 3-4:</strong> 300 stars, first consulting inquiry</p>
+<hr></div>
 </details>
 <details open id="go-to-market-strategy">
   <summary><h2>Go-To-Market Strategy</h2></summary>
-  <div class="section-content"><h3 id="phase-1-internal-validation-week-1-4">Phase 1: Internal Validation (Week 1-4)</h3>
-<p><strong>Goal:</strong> Prove it works in production (Optiver PMO).</p>
-<p><strong>Tactics:</strong></p>
-<p>1. <strong>Deploy internally first:</strong> Rajan + 2 volunteers (Cash, Crystal?) test for 2 weeks</p>
-<p>2. <strong>Capture metrics:</strong> &quot;Saved X hours,&quot; &quot;Created Y tickets automatically&quot;</p>
-<p>3. <strong>Internal demo:</strong> Present at PMO meeting (April 2026)</p>
-<p>4. <strong>Executive air cover:</strong> Get Linus to mention it in town hall or public post</p>
-<p><strong>Outcome:</strong> &quot;Battle-tested at Optiver&quot; = instant credibility.</p>
-<h3 id="phase-2-controlled-launch-week-5-8">Phase 2: Controlled Launch (Week 5-8)</h3>
-<p><strong>Goal:</strong> Get first 100 GitHub stars + 10 external users.</p>
-<p><strong>Tactics:</strong></p>
+  <div class="section-content"><h3 id="phase-1-internal-validation-week-1-2">Phase 1: Internal Validation (Week 1-2)</h3>
+<ul>
+<li>Deploy at Optiver PMO (Rajan + 2 volunteers)</li>
+<li>Capture metrics: &quot;Saved X hours&quot;</li>
+<li>Internal demo (PMO meeting)</li>
+</ul>
+<h3 id="phase-2-controlled-launch-week-3-6">Phase 2: Controlled Launch (Week 3-6)</h3>
 <p><strong>LinkedIn (Primary Channel):</strong></p>
-<p>1. <strong>Launch post (Week 5):</strong></p>
+<p>1. <strong>Launch post:</strong> &quot;I built an AI skill that does my PM work for me&quot;</p>
+<p>2. <strong>Deep-dive:</strong> &quot;How AI agents replace 80% of PM busywork&quot;</p>
+<p>3. <strong>Testimonial:</strong> Quote from teammate</p>
+<p>4. <strong>Thought leadership:</strong> &quot;Why PM tools fail and AI skills succeed&quot;</p>
+<p><strong>Reddit (Secondary):</strong></p>
 <ul>
-<li>Title: &quot;I built an AI skill that does my PM work for me&quot;</li>
-<li>Hook: &quot;Last week I spent 2 hours transcribing meetings. This week: 2 minutes.&quot;</li>
-<li>Body: Problem → Solution → Demo GIF → GitHub link</li>
-<li>CTA: &quot;Star the repo if you&#x27;d try this&quot;</li>
-<li><strong>Timing:</strong> Tuesday 9am AEST (LinkedIn prime time)</li>
+<li>Post in r/projectmanagement, r/agile</li>
+<li>&quot;I built an open-source AI skill for PMs (saves ~10 hrs/week)&quot;</li>
 </ul>
-<p>2. <strong>Deep-dive post (Week 6):</strong></p>
-<ul>
-<li>Title: &quot;How AI agents can replace 80% of PM busywork (without replacing PMs)&quot;</li>
-<li>Hook: Decision logs, capacity planning, status reports—automated</li>
-<li>Body: Walk through each feature with screenshots</li>
-<li>CTA: &quot;Which feature would save you the most time?&quot; (engagement bait)</li>
-</ul>
-<p>3. <strong>Testimonial post (Week 7):</strong></p>
-<ul>
-<li>Quote from Cash or Crystal: &quot;This saved me 8 hours last week&quot;</li>
-<li>Screenshot of Jira tickets auto-created</li>
-<li>CTA: &quot;Try it yourself&quot; + GitHub link</li>
-</ul>
-<p>4. <strong>Thought leadership post (Week 8):</strong></p>
-<ul>
-<li>Title: &quot;Why PM tools fail and AI skills succeed&quot;</li>
-<li>Angle: PMs don&#x27;t want another SaaS tool—they want their existing tools to be smarter</li>
-<li>CTA: &quot;This is the future of PM work&quot; + GitHub link</li>
-<p><strong>Reddit (Secondary Channel):</strong></p>
-<li>Post in r/projectmanagement, r/agile, r/ProductManagement</li>
-<li>Title: &quot;I built an open-source AI skill for PMs (saves ~10 hrs/week)&quot;</li>
-<li>Body: Short, humble, &quot;here&#x27;s what I made, feedback welcome&quot;</li>
-<li><strong>Timing:</strong> After LinkedIn post (test messaging first)</li>
-<p><strong>AI/Tech Communities:</strong></p>
-<li>Post in Claude Discord, Cursor community, OpenClaw Slack</li>
-<li>Angle: &quot;Built a skill for Cursor/Claude—here&#x27;s the architecture&quot;</li>
-<li>Target: AI power users who are also PMs (they exist!)</li>
 <p><strong>Email Outreach:</strong></p>
-<li>Rajan&#x27;s network: 50 PMs he knows personally</li>
-<li>Message: &quot;Built this for my team, thought you&#x27;d find it useful&quot;</li>
-<li>Personal, not spammy</li>
-<p><strong>Outcome:</strong> 100-300 stars, 5-10 external users, 2-3 testimonials.</p>
+<ul>
+<li>Rajan&#x27;s network: 50 PMs</li>
+<li>&quot;Built this for my team, thought you&#x27;d find it useful&quot;</li>
 </ul>
 <h3 id="phase-3-amplification-month-3-6">Phase 3: Amplification (Month 3-6)</h3>
-<p><strong>Goal:</strong> Break 1,000 stars. Get featured in PM newsletters/communities.</p>
-<p><strong>Tactics:</strong></p>
-<p><strong>Content Marketing:</strong></p>
-<p>1. <strong>Long-form blog post:</strong></p>
 <ul>
-<li>Title: &quot;Building a cross-platform AI skill: Lessons from 1,000 GitHub stars&quot;</li>
-<li>Publish on Medium, Dev.to, personal blog</li>
-<li>Technical deep-dive + PM insights</li>
-<li>Share in AI communities</li>
+<li>Long-form blog post</li>
+<li>Video walkthrough (YouTube)</li>
+<li>Podcast appearances (PM podcasts)</li>
+<li>ProductHunt launch (after 500 stars)</li>
 </ul>
-<p>2. <strong>Video walkthrough:</strong></p>
-<ul>
-<li>10-min YouTube video: &quot;PM Skill full demo&quot;</li>
-<li>Screen recording + narration</li>
-<li>Post to YouTube, embed in README</li>
-<li>Share on LinkedIn</li>
-</ul>
-<p>3. <strong>Podcast appearances:</strong></p>
-<ul>
-<li>Target: PM podcasts (e.g., &quot;The Product Podcast&quot;, &quot;The Everyday PM&quot;)</li>
-<li>Pitch: &quot;How AI is changing PM work—a case study&quot;</li>
-<p><strong>Community Engagement:</strong></p>
-<li>Answer questions in GitHub issues/discussions (build community)</li>
-<li>Feature external contributors in LinkedIn posts (&quot;Shoutout to @user for adding X&quot;)</li>
-<li>Host &quot;office hours&quot; (monthly Zoom call for users)</li>
-<p><strong>Partnerships:</strong></p>
-<li>Reach out to MCP server maintainers (Jira, Confluence)</li>
-<li>Propose: &quot;Official PM Skill integration&quot;</li>
-<li>Cross-promote in their communities</li>
-<p><strong>Press / Media:</strong></p>
-<li>Submit to ProductHunt (timing: after 500 stars)</li>
-<li>Pitch to PM newsletters (e.g., &quot;The Product Manager&quot;, &quot;Lenny&#x27;s Newsletter&quot;)</li>
-<li>Angle: &quot;AI-native PM tools are here&quot;</li>
-<p><strong>Outcome:</strong> 1,000+ stars, mentions in 3+ PM newsletters, 10+ consulting inquiries.</p>
-</ul>
-<h3 id="phase-4-monetization-exploration-month-6">Phase 4: Monetization Exploration (Month 6+)</h3>
-<p><strong>Goal:</strong> Validate paid offerings without alienating open-source community.</p>
-<p><strong>Options:</strong></p>
-<p><strong>Option 1: Enterprise Deployment Service</strong></p>
-<ul>
-<li>Open-source skill stays free</li>
-<li>Offer: &quot;We&#x27;ll deploy and customize PM Skill for your PMO ($5k-$15k)&quot;</li>
-<li>Includes: Setup, training, custom MCP servers, private deployment</li>
-<li>Target: PMOs at 500+ person companies</li>
-<p><strong>Option 2: Premium MCP Servers</strong></p>
-<li>Core skill: free</li>
-<li>Advanced MCP servers (Databricks, custom integrations): paid</li>
-<li>Model: One-time $500 or annual subscription $100/year</li>
-<li>Open-source community gets basic functionality, enterprises get full stack</li>
-<p><strong>Option 3: Consulting / Advisory</strong></p>
-<li>&quot;AI-native PMO transformation&quot; consulting</li>
-<li>PM Skill is the proof-of-concept / lead magnet</li>
-<li>Hourly rate or project-based ($10k-$50k engagements)</li>
-<p><strong>Option 4: SaaS Layer (Controversial)</strong></p>
-<li>Skill remains open-source</li>
-<li>Optional: Hosted platform for teams (shared decision logs, dashboards)</li>
-<li>Freemium: Free for 1 user, $10/mo per user for teams</li>
-<li>Risk: Could alienate open-source purists</li>
-<p><strong>Recommended:</strong> Option 1 (Enterprise Deployment) + Option 3 (Consulting). Keep skill open-source, monetize expertise and customization.</p>
-</ul>
-<h3 id="distribution-channels-summary">Distribution Channels Summary</h3>
-<div class="table-wrap"><table>
-<thead><tr><th>Channel</th><th>Primary Audience</th><th>Tactic</th><th>Expected ROI</th></tr></thead><tbody>
-<tr><td>**LinkedIn**</td><td>PMs, PMO leaders</td><td>Thought leadership posts, demos</td><td>HIGH (10k+ impressions/post)</td></tr>
-<tr><td>**GitHub**</td><td>Technical PMs, AI enthusiasts</td><td>Open-source repo, clear docs</td><td>HIGH (1k+ stars target)</td></tr>
-<tr><td>**Reddit**</td><td>PM practitioners</td><td>Community posts (humble, helpful)</td><td>MEDIUM (100-500 upvotes)</td></tr>
-<tr><td>**AI Communities**</td><td>AI tool users</td><td>"Built this with Cursor/Claude"</td><td>MEDIUM (crossover audience)</td></tr>
-<tr><td>**Email**</td><td>Rajan's network</td><td>Personal outreach</td><td>HIGH (50% open rate)</td></tr>
-<tr><td>**YouTube**</td><td>Visual learners</td><td>Demo walkthrough</td><td>MEDIUM (500+ views over time)</td></tr>
-<tr><td>**Podcasts**</td><td>PM audience</td><td>Guest appearances</td><td>LOW (slow build, high credibility)</td></tr>
-<tr><td>**ProductHunt**</td><td>Tech early adopters</td><td>Launch post (one-time)</td><td>MEDIUM (500-1k upvotes = visibility)</td></tr>
-</tbody></table></div>
 <hr></div>
 </details>
-<details open id="competitive-landscape">
-  <summary><h2>Competitive Landscape</h2></summary>
-  <div class="section-content"><h3 id="category-ai-tools-for-program-managers">Category: AI Tools for Program Managers</h3>
-<p><strong>Market Context:</strong> PM SaaS tools are mature and crowded (Jira, Monday, Asana, etc.). AI-native PM tools are NASCENT. Big opportunity for early movers.</p>
-<h3 id="direct-competitors-ai-pm-tools">Direct Competitors (AI PM Tools)</h3>
-<h4>1. <strong>Motion</strong> (motion.io)</h4>
-<p><strong>What they do:</strong> AI calendar + task management. Auto-schedules tasks based on priorities.</p>
-<p><strong>Strengths:</strong> Beautiful UI, good for individuals, smart scheduling algorithm</p>
-<p><strong>Weaknesses:</strong> SaaS (monthly fee), doesn&#x27;t integrate deeply with Jira/Confluence, not PM-specific</p>
-<p><strong>Differentiation:</strong> PM Skill is open-source, works with existing tools, designed for PMOs not solo users</p>
-<h4>2. <strong>Reclaim AI</strong> (reclaim.ai)</h4>
-<p><strong>What they do:</strong> AI calendar assistant, blocks time for tasks</p>
-<p><strong>Strengths:</strong> Google Calendar integration, team scheduling</p>
-<p><strong>Weaknesses:</strong> Calendar-only, doesn&#x27;t handle meetings → actions, no decision log</p>
-<p><strong>Differentiation:</strong> PM Skill does end-to-end PM workflows (meetings, decisions, capacity, reports)</p>
-<h4>3. <strong>Fireflies.ai</strong> (fireflies.ai)</h4>
-<p><strong>What they do:</strong> Meeting transcription + AI summaries</p>
-<p><strong>Strengths:</strong> Excellent transcription, integrates with Zoom/Teams/Meet</p>
-<p><strong>Weaknesses:</strong> Stops at summaries—doesn&#x27;t create tickets, track decisions, calculate debt</p>
-<p><strong>Differentiation:</strong> PM Skill goes beyond transcription → actionable PM workflows</p>
-<h4>4. <strong>Spinach.io</strong> (spinach.io)</h4>
-<p><strong>What they do:</strong> AI meeting notes + action item tracking for agile teams</p>
-<p><strong>Strengths:</strong> Designed for standups/retros, Jira integration</p>
-<p><strong>Weaknesses:</strong> SaaS ($10-20/user/month), focused on dev teams not PMOs, no capacity/debt tracking</p>
-<p><strong>Differentiation:</strong> PM Skill is broader (portfolio-level), open-source, cheaper</p>
-<h3 id="indirect-competitors-traditional-pm-tools">Indirect Competitors (Traditional PM Tools)</h3>
-<h4>1. <strong>Jira</strong> (Atlassian)</h4>
-<p><strong>What they do:</strong> Issue tracking, project management</p>
-<p><strong>Strengths:</strong> Industry standard, deep workflows, enterprise-ready</p>
-<p><strong>Weaknesses:</strong> Complex, not AI-native, requires human input for everything</p>
-<p><strong>Differentiation:</strong> PM Skill augments Jira (doesn&#x27;t replace). Makes Jira smarter via AI.</p>
-<h4>2. <strong>Monday.com / Asana / ClickUp</strong></h4>
-<p><strong>What they do:</strong> Visual project management, collaboration</p>
-<p><strong>Strengths:</strong> Beautiful UIs, flexible, good for small teams</p>
-<p><strong>Weaknesses:</strong> Yet another tool to log into, manual data entry, not AI-native</p>
-<p><strong>Differentiation:</strong> PM Skill works with whatever tools you already use. No UI. Agent-driven.</p>
-<h4>3. <strong>Microsoft Project / Smartsheet</strong></h4>
-<p><strong>What they do:</strong> Heavy-duty project planning, Gantt charts</p>
-<p><strong>Strengths:</strong> Powerful for complex projects, enterprise sales</p>
-<p><strong>Weaknesses:</strong> Steep learning curve, expensive, not AI-enabled</p>
-<p><strong>Differentiation:</strong> PM Skill is lightweight, AI-first, free.</p>
-<h3 id="emerging-competitors-ai-agents-for-pms">Emerging Competitors (AI Agents for PMs)</h3>
-<h4>1. <strong>Custom GPTs / Claude Projects</strong></h4>
-<p><strong>What they are:</strong> Users build their own PM assistants with GPT/Claude</p>
-<p><strong>Strengths:</strong> Flexible, user-controlled</p>
-<p><strong>Weaknesses:</strong> Everyone reinvents the wheel, no standardization, hard to share</p>
-<p><strong>Differentiation:</strong> PM Skill is a pre-built, shareable, well-documented solution. Install once, use everywhere.</p>
-<h4>2. <strong>Zapier / Make.com with AI</strong></h4>
-<p><strong>What they do:</strong> No-code automation with AI steps</p>
-<p><strong>Strengths:</strong> Connects tons of apps, visual workflow builder</p>
-<p><strong>Weaknesses:</strong> Expensive ($50-500/mo), not PM-specific, brittle integrations</p>
-<p><strong>Differentiation:</strong> PM Skill is PM-native, open-source, local-first, designed for agent workflows.</p>
-<h3 id="competitive-matrix">Competitive Matrix</h3>
-<div class="table-wrap"><table>
-<thead><tr><th>Competitor</th><th>Category</th><th>Pricing</th><th>PM Focus</th><th>AI-Native</th><th>Open Source</th><th>Integration Depth</th></tr></thead><tbody>
-<tr><td>**PM Skill**</td><td>AI Agent Skill</td><td>Free (OSS)</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>✅</td><td>⭐⭐⭐⭐⭐ (MCP)</td></tr>
-<tr><td>Motion</td><td>AI SaaS</td><td>$34/mo</td><td>⭐⭐</td><td>⭐⭐⭐⭐</td><td>❌</td><td>⭐⭐</td></tr>
-<tr><td>Reclaim AI</td><td>AI SaaS</td><td>$10-18/mo</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>❌</td><td>⭐⭐⭐</td></tr>
-<tr><td>Fireflies</td><td>AI SaaS</td><td>$10-19/user</td><td>⭐⭐</td><td>⭐⭐⭐⭐</td><td>❌</td><td>⭐⭐⭐</td></tr>
-<tr><td>Spinach</td><td>AI SaaS</td><td>$10-20/user</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>❌</td><td>⭐⭐⭐</td></tr>
-<tr><td>Jira</td><td>Traditional</td><td>$8-15/user</td><td>⭐⭐⭐⭐⭐</td><td>⭐</td><td>❌</td><td>⭐⭐⭐⭐⭐</td></tr>
-<tr><td>Monday</td><td>Traditional</td><td>$9-19/user</td><td>⭐⭐⭐⭐</td><td>⭐</td><td>❌</td><td>⭐⭐⭐</td></tr>
-<tr><td>Custom GPT</td><td>DIY</td><td>$20/mo</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>N/A</td><td>⭐⭐</td></tr>
-<tr><td>Zapier + AI</td><td>No-code</td><td>$50-500/mo</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>❌</td><td>⭐⭐⭐⭐</td></tr>
-</tbody></table></div>
-<h3 id="key-insight-blue-ocean-opportunity">Key Insight: Blue Ocean Opportunity</h3>
-<p><strong>Market Gap:</strong> No one is building <strong>AI agent skills</strong> for PMs. Everyone is building SaaS tools or general-purpose automation.</p>
-<p><strong>PM Skill occupies a unique position:</strong></p>
+<details open id="competitive-landscape-trimmed">
+  <summary><h2>Competitive Landscape (Trimmed)</h2></summary>
+  <div class="section-content"><h3 id="direct-competitors-ai-pm-tools">Direct Competitors (AI PM Tools)</h3>
+<p><strong>Motion / Reclaim AI:</strong> Calendar-focused, doesn&#x27;t handle meetings → actions.  </p>
+<p><strong>Fireflies.ai:</strong> Stops at transcription, doesn&#x27;t create tickets.  </p>
+<p><strong>Spinach.io:</strong> Agile-focused, SaaS ($10-20/user), no portfolio features.</p>
+<p><strong>Differentiation:</strong> PM Skill is open-source, cross-platform, portfolio-level, designed for PMOs not solo users.</p>
+<h3 id="indirect-competitors">Indirect Competitors</h3>
+<p><strong>Jira / Monday / Asana:</strong> PM Skill augments them (doesn&#x27;t replace). Makes them smarter.  </p>
+<p><strong>Custom GPTs:</strong> Everyone reinvents the wheel. PM Skill is pre-built, shareable, documented.</p>
+<h3 id="blue-ocean-opportunity">Blue Ocean Opportunity</h3>
+<p><strong>No one is building AI agent skills for PMs.</strong></p>
+<p>Everyone builds SaaS tools or general automation. PM Skill occupies unique position:</p>
 <ul>
 <li>Open-source (vs. SaaS)</li>
 <li>Agent-native (vs. UI-first)</li>
 <li>PM-specific (vs. general automation)</li>
 <li>Cross-platform (vs. vendor lock-in)</li>
-<li>Local-first (vs. cloud-only)</li>
-<p><strong>Competitive Moat:</strong></p>
 </ul>
-<p>1. <strong>First-mover advantage:</strong> No established player in &quot;AI skills for PMs&quot;</p>
-<p>2. <strong>Open-source network effects:</strong> More users → more contributors → better skill → more users</p>
-<p>3. <strong>Cross-platform compatibility:</strong> Works everywhere (SaaS tools lock you in)</p>
-<p>4. <strong>PM domain expertise:</strong> Built by a PM for PMs (not by AI tool companies)</p>
-<p><strong>Risk:</strong> Large players (Atlassian, Monday, Microsoft) could build similar AI features. But they&#x27;re slow, focused on SaaS revenue, and won&#x27;t open-source. By the time they notice, PM Skill has community + credibility.</p>
+<p><strong>Competitive Moat:</strong> First-mover advantage + open-source network effects.</p>
 <hr></div>
 </details>
 <details open id="risks-mitigations">
   <summary><h2>Risks &amp; Mitigations</h2></summary>
-  <div class="section-content"><h3 id="risk-1-ai-platforms-change-too-fast">Risk 1: AI Platforms Change Too Fast</h3>
-<p><strong>Description:</strong> Cursor, Claude Code, etc. evolve rapidly. Config formats, APIs, MCP specs change. Skill breaks.</p>
-<p><strong>Likelihood:</strong> HIGH (tools are beta/alpha)  </p>
-<p><strong>Impact:</strong> MEDIUM (frustrates users, maintenance burden)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Version pinning:</strong> Document which platform versions are tested (e.g., &quot;Cursor 0.41.x&quot;)</li>
-<li><strong>Minimal dependencies:</strong> Core skill uses simple markdown/JSON. Less surface area to break.</li>
-<li><strong>Community vigilance:</strong> Active community reports breakages fast (GitHub issues)</li>
-<li><strong>Backwards compatibility:</strong> Keep old platform adapters even after new versions release</li>
-<li><strong>Fallback instructions:</strong> If auto-transpilation breaks, provide manual copy-paste instructions</li>
-<p><strong>Contingency:</strong> If a platform becomes unmaintainable, deprecate gracefully (&quot;PM Skill v2 no longer supports Cursor &lt;0.40. Use v1 or upgrade Cursor&quot;).</p>
-</ul>
-<h3 id="risk-2-low-external-adoption-github-tumbleweeds">Risk 2: Low External Adoption (GitHub Tumbleweeds)</h3>
-<p><strong>Description:</strong> Repo gets 50 stars, no community, no traction. Rajan looks like he built a vanity project.</p>
-<p><strong>Likelihood:</strong> MEDIUM (PM audience is less technical, may not discover)  </p>
-<p><strong>Impact:</strong> HIGH (goal is exposure/credibility—without adoption, no value)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Pre-launch audience building:</strong> Post about it on LinkedIn BEFORE launch (&quot;Building something cool, interested?&quot;)</li>
-<li><strong>Seed users:</strong> Recruit 10 beta testers from Rajan&#x27;s network before public launch</li>
-<li><strong>Quality over hype:</strong> Make sure it WORKS and SAVES TIME. One delighted user &gt; ten lukewarm ones</li>
-<li><strong>Aggressive promotion:</strong> Don&#x27;t be shy. Post weekly on LinkedIn for first 8 weeks. Engage in PM communities.</li>
-<li><strong>Lower success bar:</strong> If 100 stars + 10 users + 3 consulting inquiries → call it a win. Adjust expectations.</li>
-<p><strong>Contingency:</strong> If GitHub doesn&#x27;t hit 1k stars, pivot to LinkedIn as primary channel. &quot;I built this for my team, here&#x27;s what I learned&quot; = valuable content even without mass adoption.</p>
-</ul>
-<h3 id="risk-3-enterprise-data-privacy-concerns">Risk 3: Enterprise Data Privacy Concerns</h3>
-<p><strong>Description:</strong> PMs at regulated companies (finance, healthcare) can&#x27;t use AI tools that send data to external LLMs.</p>
-<p><strong>Likelihood:</strong> MEDIUM (common in enterprise)  </p>
-<p><strong>Impact:</strong> MEDIUM (limits addressable market)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Local-first design:</strong> All data stored locally. User controls which LLM API is used (can use local models).</li>
-<li><strong>Privacy mode:</strong> Option to disable LLM features (&quot;manual mode&quot; for sensitive data)</li>
-<li><strong>Enterprise deployment option:</strong> Offer private deployment (air-gapped) as paid service</li>
-<li><strong>Clear documentation:</strong> README explains: &quot;Your data never leaves your machine unless YOU configure external APIs&quot;</li>
-<p><strong>Contingency:</strong> If privacy is a blocker for 50% of inquiries, pivot to &quot;self-hosted enterprise version&quot; as primary monetization path.</p>
-</ul>
-<h3 id="risk-4-jira-api-limitations-rate-limits">Risk 4: Jira API Limitations / Rate Limits</h3>
-<p><strong>Description:</strong> Jira Cloud API has rate limits (e.g., 10 requests/sec). Heavy usage could hit limits. Also, Jira API complexity (custom fields, workflows) makes integration brittle.</p>
-<p><strong>Likelihood:</strong> MEDIUM (depends on usage patterns)  </p>
-<p><strong>Impact:</strong> MEDIUM (features break or slow down)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Rate limit handling:</strong> Scripts include exponential backoff + retries</li>
-<li><strong>Caching:</strong> Cache Jira project metadata locally (don&#x27;t re-fetch every time)</li>
-<li><strong>Batch operations:</strong> Bundle multiple ticket updates into single API calls where possible</li>
-<li><strong>Graceful degradation:</strong> If API fails, log error but don&#x27;t crash entire workflow</li>
-<li><strong>User education:</strong> Document rate limits in README (&quot;If you process 100 meetings/day, expect slowness&quot;)</li>
-<p><strong>Contingency:</strong> For power users, recommend Jira Data Center (higher limits) or migrate to MCP server (more efficient).</p>
-</ul>
-<h3 id="risk-5-rajan-gets-busy-loses-interest">Risk 5: Rajan Gets Busy / Loses Interest</h3>
-<p><strong>Description:</strong> Rajan has a full-time job, two kids, meditation practice. PM Skill becomes a side project he can&#x27;t maintain.</p>
-<p><strong>Likelihood:</strong> MEDIUM (life happens)  </p>
-<p><strong>Impact:</strong> HIGH (project dies if founder disappears)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Minimal viable maintenance:</strong> Design for low maintenance. Clear docs, simple architecture, no complex infra.</li>
-<li><strong>Co-maintainers:</strong> Recruit 1-2 co-maintainers from community early (Month 2-3)</li>
-<li><strong>Modular design:</strong> If Rajan steps back, others can maintain specific modules (e.g., Cursor adapter)</li>
-<li><strong>Archive gracefully:</strong> If needed, mark repo &quot;maintenance mode&quot; with clear status (&quot;Not actively developed, but stable&quot;)</li>
-<p><strong>Contingency:</strong> If Rajan can only dedicate 2 hrs/week, shift to &quot;curator&quot; role. Community contributes, Rajan reviews/approves PRs.</p>
-</ul>
-<h3 id="risk-6-a-big-player-copies-it">Risk 6: A Big Player Copies It</h3>
-<p><strong>Description:</strong> Atlassian sees PM Skill, builds &quot;Jira AI Agent&quot; feature. Microsoft adds &quot;PM Copilot&quot; to Project. They crush the open-source project.</p>
-<p><strong>Likelihood:</strong> LOW (big companies are slow, focused on SaaS revenue)  </p>
-<p><strong>Impact:</strong> MEDIUM (could steal mindshare, but also validates market)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>Open-source moat:</strong> Big players can&#x27;t open-source (conflicts with SaaS business model). Community prefers OSS.</li>
-<li><strong>Embrace competition:</strong> If Atlassian builds AI PM features, PM Skill integrates with them. &quot;Works great with Jira AI!&quot;</li>
-<li><strong>Differentiation:</strong> PM Skill is cross-platform, local-first, customizable. Big players build walled gardens.</li>
-<li><strong>Speed:</strong> Move fast. By the time big players notice, PM Skill has 5k stars + community.</li>
-<p><strong>Contingency:</strong> If a big player launches competing feature, pivot messaging: &quot;PM Skill: The open-source alternative to Jira AI&quot; (underdog story, community rallies).</p>
-</ul>
-<h3 id="risk-7-mcp-doesn-t-gain-adoption">Risk 7: MCP Doesn&#x27;t Gain Adoption</h3>
-<p><strong>Description:</strong> MCP (Model Context Protocol) is Anthropic&#x27;s bet. If other AI platforms don&#x27;t adopt it, PM Skill&#x27;s MCP strategy fails.</p>
-<p><strong>Likelihood:</strong> LOW-MEDIUM (MCP is gaining traction, but not guaranteed)  </p>
-<p><strong>Impact:</strong> LOW (PM Skill works without MCP via direct APIs)</p>
-<p><strong>Mitigation:</strong></p>
-<ul>
-<li><strong>MCP is optional:</strong> Skill works with direct API calls (Jira REST, Confluence REST, etc.)</li>
-<li><strong>Adapter pattern:</strong> If MCP fails, swap in different integration layer (e.g., LangChain tools)</li>
-<li><strong>Monitor MCP adoption:</strong> Track which platforms support MCP. Adjust strategy if adoption stalls.</li>
-<p><strong>Contingency:</strong> If MCP dies, rename &quot;MCP Integration Strategy&quot; to &quot;API Integration Strategy&quot; and document direct API usage. Zero impact on end users.</p>
-<hr>
-</ul></div>
+  <div class="section-content"><h3 id="risk-1-platforms-change-too-fast">Risk 1: Platforms Change Too Fast</h3>
+<p><strong>Mitigation:</strong> Version pinning, minimal dependencies, backwards compatibility.</p>
+<h3 id="risk-2-low-external-adoption">Risk 2: Low External Adoption</h3>
+<p><strong>Mitigation:</strong> Pre-launch audience building, seed users, quality over hype, aggressive LinkedIn promotion.</p>
+<h3 id="risk-3-enterprise-privacy-concerns">Risk 3: Enterprise Privacy Concerns</h3>
+<p><strong>Mitigation:</strong> Local-first design, privacy mode, clear &quot;data never leaves your machine&quot; docs.</p>
+<h3 id="risk-4-jira-api-rate-limits">Risk 4: Jira API Rate Limits</h3>
+<p><strong>Mitigation:</strong> Rate limit handling, caching, batch operations, user education.</p>
+<h3 id="risk-5-rajan-gets-busy">Risk 5: Rajan Gets Busy</h3>
+<p><strong>Mitigation:</strong> Minimal maintenance design, recruit co-maintainers early, archive gracefully if needed.</p>
+<hr></div>
 </details>
-<details open id="implementation-roadmap-phases">
-  <summary><h2>Implementation Roadmap (Phases)</h2></summary>
-  <div class="section-content"><h3 id="phase-0-foundation-pre-launch-week-1-4">Phase 0: Foundation (Pre-Launch, Week 1-4)</h3>
-<p><strong>Goal:</strong> MVP ready for internal demo.</p>
-<p><strong>Deliverables:</strong></p>
+<details open id="implementation-roadmap">
+  <summary><h2>Implementation Roadmap</h2></summary>
+  <div class="section-content"><h3 id="phase-0-mvp-week-1-2">Phase 0: MVP (Week 1-2)</h3>
 <ul>
-<li>✅ Repo structure + architecture</li>
-<li>✅ Core features: Meeting pipeline, decision log, capacity tracker, debt calculator</li>
-<li>✅ Cross-platform: OpenClaw, Claude Code, Cursor</li>
-<li>✅ Documentation: README, installation guide, examples</li>
-<li>✅ Internal testing: Rajan + 2 volunteers (Cash, Crystal)</li>
-<p><strong>Success Criteria:</strong> Can demo at Optiver PMO meeting. &quot;This works&quot; proof.</p>
+<li>Core features: Meeting pipeline, decision log, status reports</li>
+<li>Platforms: Claude Code + Cursor</li>
+<li>Documentation: README, installation guide</li>
+<li><strong>Outcome:</strong> Demo-ready for Raul session</li>
 </ul>
-<h3 id="phase-1-public-launch-week-5-8">Phase 1: Public Launch (Week 5-8)</h3>
-<p><strong>Goal:</strong> Get first 100 GitHub stars + 10 external users.</p>
-<p><strong>Deliverables:</strong></p>
+<h3 id="phase-1-public-launch-week-3-6">Phase 1: Public Launch (Week 3-6)</h3>
 <ul>
-<li>✅ Public GitHub repo (MIT license)</li>
-<li>✅ LinkedIn launch post (+ 3 follow-up posts)</li>
-<li>✅ Reddit posts (r/projectmanagement, etc.)</li>
-<li>✅ Email outreach (50 PMs in Rajan&#x27;s network)</li>
-<li>✅ First external user testimonial</li>
-<p><strong>Success Criteria:</strong> 100+ stars, 10+ external users, 3+ testimonials, 1+ consulting inquiry.</p>
+<li>Public GitHub repo (MIT license)</li>
+<li>LinkedIn launch (4 posts)</li>
+<li>Reddit, email outreach</li>
+<li><strong>Outcome:</strong> 100+ stars, 10+ external users</li>
 </ul>
 <h3 id="phase-2-feature-expansion-month-3-4">Phase 2: Feature Expansion (Month 3-4)</h3>
-<p><strong>Goal:</strong> Add post-MVP features based on user feedback.</p>
-<p><strong>Prioritize based on user requests. Likely candidates:</strong></p>
 <ul>
-<li>✅ Intake &amp; request formalization (if PMOs ask for it)</li>
-<li>✅ Auto-scheduling follow-ups (if users struggle with manual)</li>
-<li>✅ PDF/PPTX export for status reports (if execs demand it)</li>
-<li>✅ Slack integration (if users want notifications)</li>
-<li>✅ Retrospective linkage (if users want to learn from past decisions)</li>
-<p><strong>Success Criteria:</strong> 2-3 new features shipped. 300+ stars. Active community (10+ issues/discussions).</p>
+<li>Add: Capacity planning, tech debt quantification, intake formalization</li>
+<li>Based on user feedback</li>
+<li><strong>Outcome:</strong> 300+ stars, active community</li>
 </ul>
-<h3 id="phase-3-cross-platform-expansion-month-5-6">Phase 3: Cross-Platform Expansion (Month 5-6)</h3>
-<p><strong>Goal:</strong> Support Windsurf, Aider, and other platforms fully.</p>
-<p><strong>Deliverables:</strong></p>
+<h3 id="phase-3-mcp-ecosystem-month-6-9">Phase 3: MCP Ecosystem (Month 6-9)</h3>
 <ul>
-<li>✅ Windsurf adapter (tested, documented)</li>
-<li>✅ Aider adapter (tested, documented)</li>
-<li>✅ Codex support (if feasible—different architecture)</li>
-<li>✅ Universal install script (<code>npm install -g pm-skill</code> → detects platform, installs)</li>
-<p><strong>Success Criteria:</strong> Works on 5+ platforms. 500+ stars. First external contributor PR merged.</p>
+<li>Build Jira/Confluence MCP servers</li>
+<li>Slack MCP when available</li>
+<li><strong>Outcome:</strong> 750+ stars, seamless MCP integration</li>
 </ul>
-<h3 id="phase-4-mcp-ecosystem-month-6-9">Phase 4: MCP Ecosystem (Month 6-9)</h3>
-<p><strong>Goal:</strong> Build and publish official MCP servers.</p>
-<p><strong>Deliverables:</strong></p>
+<h3 id="phase-4-strategic-features-month-9-12">Phase 4: Strategic Features (Month 9-12)</h3>
 <ul>
-<li>✅ Jira MCP server (open-source, published to MCP registry)</li>
-<li>✅ Confluence MCP server (open-source, published)</li>
-<li>✅ Slack MCP server (open-source, published)</li>
-<li>✅ Calendar MCP server (Google + Outlook)</li>
-<li>✅ Documentation: How to set up MCP servers</li>
-<p><strong>Success Criteria:</strong> MCP servers have 100+ installs each. PM Skill works seamlessly with MCP. 750+ stars.</p>
+<li>Strategic advisory engine, cross-regional coordination</li>
+<li><strong>Outcome:</strong> 1,000+ stars, featured in PM newsletter</li>
 </ul>
-<h3 id="phase-5-strategic-features-month-9-12">Phase 5: Strategic Features (Month 9-12)</h3>
-<p><strong>Goal:</strong> Add high-value, complex features.</p>
-<p><strong>Deliverables:</strong></p>
+<h3 id="phase-5-monetization-prep-month-12">Phase 5: Monetization Prep (Month 12+)</h3>
 <ul>
-<li>✅ Strategic advisory engine (portfolio analysis, prioritization)</li>
-<li>✅ Cross-regional coordination (timezone, duplicate detection)</li>
-<li>✅ Technical debt trend analysis (time-series, forecasting)</li>
-<li>✅ Advanced reporting (dashboards, visualizations)</li>
-<p><strong>Success Criteria:</strong> 1,000+ stars. Featured in PM newsletter. 5+ consulting inquiries. Optiver uses it in production.</p>
+<li>Enterprise deployment service</li>
+<li>Premium MCP servers</li>
+<li>Case studies</li>
+<li><strong>Outcome:</strong> First paid customer ($5k+)</li>
 </ul>
-<h3 id="phase-6-monetization-prep-month-12">Phase 6: Monetization Prep (Month 12+)</h3>
-<p><strong>Goal:</strong> Validate paid offerings.</p>
-<p><strong>Deliverables:</strong></p>
-<ul>
-<li>✅ Enterprise deployment service (landing page, pricing)</li>
-<li>✅ Premium MCP servers (Databricks, custom integrations)</li>
-<li>✅ Case studies (Optiver + 2 external companies)</li>
-<li>✅ Sales outreach (10 target PMOs)</li>
-<p><strong>Success Criteria:</strong> First paid customer ($5k+ engagement). 1,500+ stars. Sustainable side income ($2k+/mo).</p>
-<hr>
-</ul></div>
+<hr></div>
 </details>
-<details open id="appendix-technical-details">
-  <summary><h2>Appendix: Technical Details</h2></summary>
-  <div class="section-content"><h3 id="a-schema-definitions">A. Schema Definitions</h3>
-<h4>Decision Schema</h4>
+<details open id="appendix-key-technical-schemas">
+  <summary><h2>Appendix: Key Technical Schemas</h2></summary>
+  <div class="section-content"><h3 id="decision-schema">Decision Schema</h3>
 <pre><code class="lang-json">
 {
-  &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema#&quot;,
-  &quot;type&quot;: &quot;object&quot;,
-  &quot;properties&quot;: {
-    &quot;id&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;Unique ID (e.g., decision-2026-03-10-001)&quot;},
-    &quot;date&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;format&quot;: &quot;date&quot;},
-    &quot;title&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;context&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;Background / why this decision was needed&quot;},
-    &quot;options_considered&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;object&quot;,
-        &quot;properties&quot;: {
-          &quot;option&quot;: {&quot;type&quot;: &quot;string&quot;},
-          &quot;pros&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}},
-          &quot;cons&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}}
-        }
-      }
-    },
-    &quot;decision_made&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;rationale&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;participants&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}},
-    &quot;related_tickets&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}},
-    &quot;outcome_status&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;enum&quot;: [&quot;pending&quot;, &quot;in_progress&quot;, &quot;complete&quot;, &quot;failed&quot;]},
-    &quot;outcome_notes&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;lessons_learned&quot;: {&quot;type&quot;: &quot;string&quot;}
-  },
-  &quot;required&quot;: [&quot;id&quot;, &quot;date&quot;, &quot;title&quot;, &quot;decision_made&quot;, &quot;participants&quot;]
+  &quot;id&quot;: &quot;decision-2026-03-10-001&quot;,
+  &quot;date&quot;: &quot;2026-03-10&quot;,
+  &quot;title&quot;: &quot;AI Champion Assignment&quot;,
+  &quot;decision_made&quot;: &quot;Assign Rajan as PMO AI Champion&quot;,
+  &quot;rationale&quot;: &quot;4 years AI automation experience&quot;,
+  &quot;participants&quot;: [&quot;Linus&quot;, &quot;Lewen&quot;, &quot;Rajan&quot;, &quot;Cash&quot;],
+  &quot;related_tickets&quot;: [&quot;APAC-128&quot;],
+  &quot;outcome_status&quot;: &quot;pending&quot;
 }
 </code></pre>
-<h4>Capacity Schema</h4>
+<h3 id="meeting-schema">Meeting Schema</h3>
 <pre><code class="lang-json">
 {
-  &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema#&quot;,
-  &quot;type&quot;: &quot;object&quot;,
-  &quot;properties&quot;: {
-    &quot;person&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;allocations&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;object&quot;,
-        &quot;properties&quot;: {
-          &quot;project&quot;: {&quot;type&quot;: &quot;string&quot;},
-          &quot;role&quot;: {&quot;type&quot;: &quot;string&quot;},
-          &quot;percent&quot;: {&quot;type&quot;: &quot;number&quot;, &quot;minimum&quot;: 0, &quot;maximum&quot;: 100},
-          &quot;start_date&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;format&quot;: &quot;date&quot;},
-          &quot;end_date&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;format&quot;: &quot;date&quot;}
-        }
-      }
-    },
-    &quot;total_allocation&quot;: {&quot;type&quot;: &quot;number&quot;, &quot;description&quot;: &quot;Sum of all percents&quot;},
-    &quot;flags&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;string&quot;,
-        &quot;enum&quot;: [&quot;overallocated&quot;, &quot;underallocated&quot;, &quot;vacation_conflict&quot;]
-      }
+  &quot;meeting_id&quot;: &quot;pmo-2026-03-10&quot;,
+  &quot;date&quot;: &quot;2026-03-10&quot;,
+  &quot;title&quot;: &quot;APAC PMO Weekly Sync&quot;,
+  &quot;participants&quot;: [&quot;Linus&quot;, &quot;Lewen&quot;, &quot;Rajan&quot;, &quot;Cash&quot;, &quot;Crystal&quot;, &quot;Ma&quot;],
+  &quot;action_items&quot;: [
+    {
+      &quot;action&quot;: &quot;Review capacity planning tools&quot;,
+      &quot;owner&quot;: &quot;Cash&quot;,
+      &quot;due_date&quot;: &quot;2026-03-17&quot;,
+      &quot;ticket_id&quot;: &quot;APAC-123&quot;
     }
-  }
+  ],
+  &quot;decisions&quot;: [&quot;decision-2026-03-10-001&quot;],
+  &quot;risks&quot;: [&quot;Vendor delay on broker X onboarding&quot;]
 }
 </code></pre>
-<h4>Meeting Schema</h4>
+<h3 id="capacity-schema">Capacity Schema</h3>
 <pre><code class="lang-json">
 {
-  &quot;$schema&quot;: &quot;http://json-schema.org/draft-07/schema#&quot;,
-  &quot;type&quot;: &quot;object&quot;,
-  &quot;properties&quot;: {
-    &quot;meeting_id&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;date&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;format&quot;: &quot;date&quot;},
-    &quot;title&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;participants&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}},
-    &quot;transcript_path&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;summary&quot;: {&quot;type&quot;: &quot;string&quot;},
-    &quot;action_items&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {
-        &quot;type&quot;: &quot;object&quot;,
-        &quot;properties&quot;: {
-          &quot;action&quot;: {&quot;type&quot;: &quot;string&quot;},
-          &quot;owner&quot;: {&quot;type&quot;: &quot;string&quot;},
-          &quot;due_date&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;format&quot;: &quot;date&quot;},
-          &quot;status&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;enum&quot;: [&quot;pending&quot;, &quot;in_progress&quot;, &quot;complete&quot;]},
-          &quot;ticket_id&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;Jira ticket if created&quot;}
-        }
-      }
-    },
-    &quot;decisions&quot;: {
-      &quot;type&quot;: &quot;array&quot;,
-      &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;IDs of decision log entries&quot;}
-    },
-    &quot;risks&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}},
-    &quot;dependencies&quot;: {&quot;type&quot;: &quot;array&quot;, &quot;items&quot;: {&quot;type&quot;: &quot;string&quot;}}
-  }
+  &quot;person&quot;: &quot;Rajan&quot;,
+  &quot;allocations&quot;: [
+    {&quot;project&quot;: &quot;Crypto Expansion&quot;, &quot;percent&quot;: 50, &quot;start_date&quot;: &quot;2026-03-01&quot;},
+    {&quot;project&quot;: &quot;India Tax&quot;, &quot;percent&quot;: 40, &quot;start_date&quot;: &quot;2026-03-10&quot;},
+    {&quot;project&quot;: &quot;PMO Ops&quot;, &quot;percent&quot;: 30, &quot;start_date&quot;: &quot;2026-01-01&quot;}
+  ],
+  &quot;total_allocation&quot;: 120,
+  &quot;flags&quot;: [&quot;overallocated&quot;]
 }
-</code></pre>
-<h3 id="b-example-workflows">B. Example Workflows</h3>
-<h4>Workflow 1: Process Meeting → Jira Tickets</h4>
-<pre><code class="lang-">
-INPUT: Granola transcript (markdown file)
-
-STEPS:
-1. Read transcript file
-2. LLM extracts: action items (with owners, deadlines)
-3. For each action item:
-   a. Check if ticket already exists (search Jira by summary)
-   b. If not, create ticket:
-      - Project: from config (e.g., APAC-PMO)
-      - Type: Task
-      - Summary: action item text
-      - Description: context from meeting
-      - Assignee: owner
-      - Due date: extracted deadline
-   c. Store ticket ID in meeting log
-4. Generate meeting summary markdown
-5. Save to memory/meetings/YYYY-MM-DD-meeting-title.md
-
-OUTPUT: 
-- 5 Jira tickets created
-- Meeting summary saved
-- User notified: &quot;Created 5 tickets, summary saved&quot;
-</code></pre>
-<h4>Workflow 2: Check Capacity → Flag Overallocation</h4>
-<pre><code class="lang-">
-INPUT: Team name + date range
-
-STEPS:
-1. Read capacity allocations from memory/capacity/apac-allocations.json
-2. Filter by date range
-3. For each person:
-   a. Sum allocations (% across all projects)
-   b. If &gt;100%, flag as OVERALLOCATED
-   c. If &lt;70%, flag as UNDERALLOCATED
-   d. Check calendar for vacation (via Calendar API)
-   e. If vacation overlaps allocation, flag VACATION_CONFLICT
-4. Generate markdown table:
-   | Person | Total Allocation | Projects | Flags |
-5. Suggest actions:
-   - If overallocated: &quot;Defer Project X to next month&quot;
-   - If vacation conflict: &quot;Reassign Task Y to another PM&quot;
-
-OUTPUT: Markdown table + recommendations
-</code></pre>
-<h4>Workflow 3: Generate Status Report</h4>
-<pre><code class="lang-">
-INPUT: Project key (e.g., &quot;Crypto Expansion&quot;)
-
-STEPS:
-1. Query Jira: all tickets in project
-2. Aggregate:
-   - Total tickets, done vs in-progress vs blocked
-   - Velocity (story points completed last sprint)
-   - Upcoming milestones (due dates from tickets)
-3. Read decision log: recent decisions for this project
-4. Read meeting notes: recent meeting summaries
-5. Read RAID log: risks, issues
-6. Populate markdown template:
-   ---
-   # Status Report: Crypto Expansion
-   Date: 2026-03-11
-   
-   ## Summary
-   - On track / At risk / Blocked
-   
-   ## Milestones
-   - Milestone 1: Complete (✅)
-   - Milestone 2: In progress (80% done)
-   - Milestone 3: At risk (vendor delay)
-   
-   ## Risks
-   - [High] Vendor delay (broker X onboarding)
-   - [Medium] Capacity constraint (need 1 more dev)
-   
-   ## Decisions Made This Week
-   - Decided to defer Phase 2 to Q3
-   
-   ## Next Actions
-   - [ ] Finalize contract with broker X (Rajan, by Fri)
-   - [ ] Hire contractor dev (HR, by next Mon)
-   ---
-
-OUTPUT: Markdown file saved to memory/reports/2026-03-11-crypto-expansion-status.md
-</code></pre>
-<h3 id="c-installation-scripts">C. Installation Scripts</h3>
-<h4>OpenClaw Installation</h4>
-<pre><code class="lang-bash">
-#!/bin/bash
-# install-openclaw.sh
-
-echo &quot;Installing PM Skill for OpenClaw...&quot;
-
-SKILL_DIR=&quot;$HOME/.openclaw/skills/pm-skill&quot;
-
-# Clone repo
-if [ -d &quot;$SKILL_DIR&quot; ]; then
-  echo &quot;PM Skill already installed. Updating...&quot;
-  cd &quot;$SKILL_DIR&quot; &amp;&amp; git pull
-else
-  git clone https://github.com/rajanr/pm-skill.git &quot;$SKILL_DIR&quot;
-fi
-
-# Install dependencies (if any)
-cd &quot;$SKILL_DIR&quot; &amp;&amp; npm install
-
-# Copy config template
-cp &quot;$SKILL_DIR/config.example.json&quot; &quot;$HOME/.pm-skill/config.json&quot;
-
-echo &quot;✅ PM Skill installed!&quot;
-echo &quot;Next: Configure Jira API (edit ~/.pm-skill/config.json)&quot;
-echo &quot;Then restart OpenClaw session&quot;
-</code></pre>
-<h4>Cursor Installation</h4>
-<pre><code class="lang-bash">
-#!/bin/bash
-# install-cursor.sh
-
-echo &quot;Installing PM Skill for Cursor...&quot;
-
-SKILL_DIR=&quot;$HOME/pm-skill&quot;
-
-# Clone repo
-if [ -d &quot;$SKILL_DIR&quot; ]; then
-  cd &quot;$SKILL_DIR&quot; &amp;&amp; git pull
-else
-  git clone https://github.com/rajanr/pm-skill.git &quot;$SKILL_DIR&quot;
-fi
-
-# Generate .cursorrules
-cd &quot;$SKILL_DIR&quot; &amp;&amp; npm run transpile:cursor
-
-# Copy to project root
-cp &quot;$SKILL_DIR/platforms/cursor/.cursorrules&quot; ./.cursorrules
-
-echo &quot;✅ PM Skill installed for Cursor!&quot;
-echo &quot;Cursor will auto-load .cursorrules on next session&quot;
 </code></pre>
 <hr></div>
 </details>
-<details open id="final-thoughts-why-this-will-work">
-  <summary><h2>Final Thoughts: Why This Will Work</h2></summary>
-  <div class="section-content"><p><strong>1. Rajan has the credibility.</strong>  </p>
-<ul>
-<li>Real PM at a prestigious firm (Optiver)</li>
-<li>Solves his own pain → authentic</li>
-<li>Can demo it working in production</li>
-<p><strong>2. The market is ready.</strong>  </p>
-<li>PMs are drowning in manual work</li>
-<li>AI tools (Cursor, Claude Code) are mainstream now</li>
-<li>No one else is building agent skills for PMs</li>
-<p><strong>3. Open-source = distribution hack.</strong>  </p>
-<li>GitHub stars = social proof</li>
-<li>Community contributions = scale without hiring</li>
-<li>Free tier = wide adoption → consulting inquiries</li>
-<p><strong>4. Timing is perfect.</strong>  </p>
-<li>MCP just launched (riding the wave)</li>
-<li>AI coding tools are hot (LinkedIn engagement)</li>
-<li>PMOs globally are under pressure to &quot;do more with less&quot;</li>
-<p><strong>5. Downside is limited.</strong>  </p>
-<li>If it fails: Rajan gets a portfolio piece + learning</li>
-<li>If it succeeds: GitHub stars, LinkedIn visibility, consulting gigs, maybe acquisition offers</li>
-<p><strong>This PRD is designed to WIN.</strong>  </p>
-</ul>
-<p>Not just as a product, but as Rajan&#x27;s ticket to recognition—internally at Optiver and externally in the PM + AI community.</p>
+<details open id="installation-examples">
+  <summary><h2>Installation Examples</h2></summary>
+  <div class="section-content"><h3 id="claude-code-installation">Claude Code Installation</h3>
+<pre><code class="lang-bash">
+git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
+cd ~/pm-skill
+npm run install:claude
+
+# Configure Jira
+nano ~/.pm-skill/config.json
+# Add: {&quot;jira&quot;: {&quot;url&quot;: &quot;https://optiver.atlassian.net&quot;, &quot;token&quot;: &quot;YOUR_TOKEN&quot;}}
+
+# Restart Claude Code session
+</code></pre>
+<h3 id="cursor-installation">Cursor Installation</h3>
+<pre><code class="lang-bash">
+git clone https://github.com/rajanr/pm-skill.git ~/pm-skill
+cd ~/pm-skill
+npm run install:cursor
+
+# Configure Jira (same as above)
+nano ~/.pm-skill/config.json
+
+# .cursorrules now in project root, Cursor will auto-load
+</code></pre>
+<h3 id="slack-app-setup">Slack App Setup</h3>
+<p>See <code>integrations/slack-app-setup.md</code> for detailed guide:</p>
+<p>1. Create app at api.slack.com/apps</p>
+<p>2. Add scopes: <code>chat:write</code>, <code>channels:history</code>, <code>search:read</code></p>
+<p>3. Install to workspace</p>
+<p>4. Add Bot Token to config.json</p>
+<hr></div>
+</details>
+<details open id="why-this-will-work">
+  <summary><h2>Why This Will Work</h2></summary>
+  <div class="section-content"><p>1. <strong>Rajan has credibility:</strong> Real PM at Optiver, solves his own pain, can demo in production.</p>
+<p>2. <strong>Market is ready:</strong> PMs drowning in manual work, AI tools mainstream, no one building agent skills for PMs.</p>
+<p>3. <strong>Open-source = distribution hack:</strong> GitHub stars = social proof, community contributions = scale.</p>
+<p>4. <strong>Timing is perfect:</strong> MCP just launched, AI coding tools hot, PMOs under &quot;do more with less&quot; pressure.</p>
+<p>5. <strong>Downside limited:</strong> If it fails → portfolio piece. If it succeeds → GitHub stars, LinkedIn visibility, consulting gigs.</p>
+<hr></div>
+</details>
+<details open id="final-thought">
+  <summary><h2>Final Thought</h2></summary>
+  <div class="section-content"><p><strong>From vision document to build plan.</strong></p>
+<p>v1 was comprehensive exploration. v2 is the actionable roadmap.</p>
 <p><strong>Now execute.</strong> 🚀</p>
 <hr>
 <p><strong>END OF DOCUMENT</strong></p>
-<p><em>This PRD is a living document. Update it as you learn. Ship fast, iterate faster.</em></p></div>
+<p><em>Ship fast. Iterate faster. Demo in 2 weeks.</em></p></div>
 </details>
 </div>
 <button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
